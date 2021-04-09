@@ -6,3 +6,4 @@ edition = "2018"
 description = "A virtual machine designed to run Lun Machine-code"
 
 [dependencies]
+num_enum = "0.5.1"
