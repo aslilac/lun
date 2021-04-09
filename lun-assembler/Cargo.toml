@@ -1,0 +1,8 @@
+[package]
+name = "lun-assembler"
+version = "0.0.1"
+authors = ["McKayla Washburn <mckayla@hey.com>"]
+edition = "2018"
+description = "An assembler designed to turn Lun Assembly into Lun Machine-code"
+
+[dependencies]

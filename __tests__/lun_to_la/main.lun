@@ -1,0 +1,10 @@
+fn add a: u64, b: u64 -> u64 {
+	a + b
+}
+
+fn main args: string[] -> usize {
+	let [opt] = args;
+	let mut x = add 3, 4;
+
+	x = add x, 5 if opt == "--extra";
+}
