@@ -1,3 +1,10 @@
+// mod instruction;
+
+use num_enum::{IntoPrimitive, TryFromPrimitive};
+
+mod add;
+mod xor;
+
 #[derive(Debug, Default)]
 pub struct Vm {
     a: u64,
@@ -11,7 +18,8 @@ pub struct Vm {
 }
 
 #[allow(non_camel_case_types)]
-#[derive(PartialEq, IntoPrimitive, TryFromPrimitive)]
+#[derive(Copy, Clone, Debug, PartialEq, IntoPrimitive, TryFromPrimitive)]
+#[repr(u64)]
 pub enum VmRegister {
     x = 0b1000,
     y = 0b1001,
@@ -37,5 +45,20 @@ impl Vm {
             x => self.x,
             y => self.y,
         }
+    }
+
+    pub fn set_register_value(&mut self, reg: VmRegister, val: u64) {
+        use VmRegister::*;
+
+        match reg {
+            a => self.a = val,
+            b => self.b = val,
+            c => self.c = val,
+            d => self.d = val,
+            e => self.e = val,
+            f => self.f = val,
+            x => self.x = val,
+            y => self.y = val,
+        };
     }
 }

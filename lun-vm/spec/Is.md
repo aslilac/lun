@@ -88,6 +88,19 @@ opcode, which is always contained in the first word.
 Adds together the numbers from the first register and the inlined immediate value and
 stores them in the first register.
 
+`add.{i64,u64} :_ # :_`
+
+    |--------|--------|--------|--------|--------|--------|--------|--------|
+     00000000 00000000 101srr.. 0000r1.. nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn
+
+    : s	    0 => u64, 1 => i64
+    : r1..	The first operand register
+    : rr..  The result storage register
+    : n	    The inlined immediate value (a 32 bit value that will be signed extended to 64 bits)
+
+Adds together the numbers from the first register and the inlined immediate value and
+stores them in the first register.
+
 `add.{i64,u64} :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
