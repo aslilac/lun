@@ -1,10 +1,54 @@
-fn add a: u64, b: u64 -> u64 {
-	a + b
-}
 
-fn main args: string[] -> usize {
+
+fn add a: u64, b: u64 -> u64
+	a + b
+
+# type TFriend =
+# 	name: string
+# 	age: number
+# 	bff?: boolean
+# 	birthday: Date
+# 	x: 'a' | 'b' | 'c'
+
+interface IPerson
+	name: string
+	age: number
+
+interface IFriend extends IPerson
+	type: 'friend'
+	birthday: Date
+	bff?: boolean
+
+interface IGf extends IGf
+	type: 'gf'
+	anniversary: Date
+
+@memo
+class Friend implements IFriend
+	type = 'friend'
+
+	fn constructor(
+		readonly name,
+		readonly age,
+		readonly birthday,
+		readonly bff?,
+	)
+		# I don't know what to put here but this is where the constructor body would go
+
+
+impl Friend
+	pub fn greet
+		println "Hi, my name is ${this.name}!"
+
+	pub fn say_hi_to friend: Friend
+		println "Hello, ${friend.name}!"
+
+
+fn main args: string[] -> usize
 	let [opt] = args;
 	let mut x = add 3, 4;
 
 	x = add x, 5 if opt == "--extra";
-}
+
+	Friend kayla "Kayla", 25, true, new Date("4/20/96"), 'b'
+	kayla.greet 1

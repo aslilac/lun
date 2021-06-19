@@ -66,7 +66,7 @@ It is worthwhile to note 2 things
 ## Instruction size
 
 Instructions are all stored as words. Some instructions can be stored across
-multiple words, up to 5. The number of words an instruction is encoded as part of the
+multiple words, up to 5. The number of words in an instruction are encoded as part of the
 opcode, which is always contained in the first word.
 
 `00` - 1 word
@@ -91,7 +91,7 @@ stores them in the first register.
 `add.{i64,u64} :_ # :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 101srr.. 0000r1.. nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn
+     00000000 00000000 101s0000 r1..rr.. nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn
 
     : s	    0 => u64, 1 => i64
     : r1..	The first operand register
@@ -104,7 +104,7 @@ stores them in the first register.
 `add.{i64,u64} :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 110s0000 0000r1.. 0000r2.. 00000000 00000000 00000000
+     00000000 00000000 110s0000 r1..r2.. 00000000 00000000 00000000 00000000
 
     : s	    0 => u64, 1 => i64
     : r1..	The first operand register, and the result storage register
@@ -116,7 +116,7 @@ first register.
 `add.{i64,u64} :_ :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 111s0000 0000r1.. 0000r2.. 0000r3.. 00000000 00000000
+     00000000 00000000 111s0000 r1..r2.. r3..0000 00000000 00000000 00000000
 
     : s	    0 => u64, 1 => i64
     : r1..  The first operand register
@@ -129,7 +129,7 @@ third register.
 `xor :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000001 10010000 0000r... 00000000 00000000 00000000 00000000
+     00000000 00000001 10010000 r...0000 00000000 00000000 00000000 00000000
 
     : r...  The register to clear
 
@@ -138,7 +138,7 @@ Shorthand for `xor :_ :_ :_` (useful for zeroing a register)
 `xor :_ :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000001 11100000 0000r1.. 0000r2.. 0000r3.. 00000000 00000000
+     00000000 00000001 11100000 r1..r2.. r3..0000 00000000 00000000 00000000
 
     : r1..  The first operand register
     : r2..  The second operand register
@@ -154,19 +154,19 @@ stores them in the third register.
 `i.by :_ [label]`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00100000 00000000 10000000 0000ri.. dddddddd dddddddd dddddddd dddddddd
+     00100000 00000000 10000000 ri..0000 dddddddd dddddddd dddddddd dddddddd
 
     : ri.. The register to inload from memory
     : d    The offset from the address of the word containing this instruction
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00100000 00000000 11000000 0000ri.. 0000r@.. 00000000 00000000 00000000
+     00100000 00000000 11000000 ri..r@.. 00000000 00000000 00000000 00000000
 
     : ri.. The register to inload from memory
     : r@.. The register containing the address in memory to read from
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     01100000 00000000 10000000 0000ri.. 00000000 00000000 00000000 00000000
+     01100000 00000000 10000000 ri..0000 00000000 00000000 00000000 00000000
      @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@
 
     : ri.. The register to inload from memory
@@ -179,19 +179,19 @@ Reads a value from an address in memory into the specified register
 `o.by :_ [label]`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00010000 00000000 10000000 0000ro.. dddddddd dddddddd dddddddd dddddddd
+     00010000 00000000 10000000 ro..0000 dddddddd dddddddd dddddddd dddddddd
 
     : ro.. The register to outload to memory
     : d    The offset from the address of the word containing this instruction
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00100000 00000000 11000000 0000ro.. 0000r@.. 00000000 00000000 00000000
+     00100000 00000000 11000000 ro..r@.. 00000000 00000000 00000000 00000000
 
     : ro.. The register to outload to memory
     : r@.. The register containing the address in memory to write to
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     01010000 00000000 10000000 0000ro.. 00000000 00000000 00000000 00000000
+     01010000 00000000 10000000 ro..0000 00000000 00000000 00000000 00000000
      @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@ @@@@@@@@
 
     : ro.. The register to outload to memory

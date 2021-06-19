@@ -2,5 +2,5 @@ xor :a                          ; Set :a to zero
 
 -> [loop_and_chill]
 add.u64 :a 1                    ; Increment :a by 1
-o.at :a 100                      ; Store the value of a in memory at
+o.at    :a 100                  ; Store the value of a in memory at
 l [loop_and_chill]
