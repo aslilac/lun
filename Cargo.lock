@@ -16,17 +16,17 @@ dependencies = [
 [[package]]
 name = "lun"
 version = "0.0.1"
+dependencies = [
+ "num_enum",
+]
 
 [[package]]
 name = "lun-assembler"
 version = "0.0.1"
 
 [[package]]
-name = "lun-vm"
+name = "lunc"
 version = "0.0.1"
-dependencies = [
- "num_enum",
-]
 
 [[package]]
 name = "num_enum"

@@ -1,3 +1,7 @@
 [workspace]
 
-members = ["lun", "lun-assembler", "lun-vm"]
+members = [
+	"lun",
+	"lun-assembler",
+	"lunc"
+]

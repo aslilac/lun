@@ -1,9 +1,9 @@
-// mod instruction;
+pub mod arithmetic;
+pub mod instruction;
+pub mod logic;
 
+pub use instruction::Instruction;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-
-mod add;
-mod xor;
 
 #[derive(Debug, Default)]
 pub struct Vm {
@@ -15,6 +15,9 @@ pub struct Vm {
     f: u64,
     x: u64,
     y: u64,
+
+    eq: bool,
+    ng: bool,
 }
 
 #[allow(non_camel_case_types)]
@@ -60,5 +63,13 @@ impl Vm {
             x => self.x = val,
             y => self.y = val,
         };
+    }
+
+    pub fn exec(&mut self, instruction: impl Instruction) {
+        instruction.exec(self);
+    }
+
+    pub fn inspect(&self) {
+        println!("{:?}", self);
     }
 }

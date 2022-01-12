@@ -1,9 +1,8 @@
 [package]
-name = "lun-vm"
+name = "lunc"
 version = "0.0.1"
 authors = ["McKayla Washburn <mckayla@hey.com>"]
 edition = "2018"
-description = "A virtual machine designed to run Lun Machine-code"
+description = "The Lun compiler"
 
 [dependencies]
-num_enum = "0.5.1"
