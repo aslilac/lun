@@ -5,19 +5,19 @@ use vm::{arithmetic::ArithmeticInstruction::*, logic::LogicInstruction::*, Vm, V
 fn main() -> Result<(), std::io::Error> {
     let mut vm = Vm::default();
 
-    vm.exec(add_u64_ri(x,1));
-    vm.exec(add_u64_rr(x,x));
-    vm.exec(add_u64_rir(x,1,y));
-    vm.exec(add_u64_rrr(x,x,y));
+    vm.exec(add_u64_ri(x, 1));
+    vm.exec(add_u64_rr(x, x));
+    vm.exec(add_u64_rir(x, 1, y));
+    vm.exec(add_u64_rrr(x, x, y));
 
-    vm.exec(mul_u64_ri(x,1));
-    vm.exec(mul_u64_rr(x,x));
-    vm.exec(mul_u64_rir(x,1,y));
-    vm.exec(mul_u64_rrr(x,x,y));
+    vm.exec(mul_u64_ri(x, 1));
+    vm.exec(mul_u64_rr(x, x));
+    vm.exec(mul_u64_rir(x, 1, y));
+    vm.exec(mul_u64_rrr(x, x, y));
 
     vm.exec(xor_u64_r(x));
-    vm.exec(xor_u64_rr(x,x));
-    vm.exec(xor_u64_rrr(x,x,x));
+    vm.exec(xor_u64_rr(x, x));
+    vm.exec(xor_u64_rrr(x, x, x));
 
     vm.inspect();
 

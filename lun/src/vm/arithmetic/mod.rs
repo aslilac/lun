@@ -49,9 +49,10 @@ mod tests {
         assert_eq!(vm.get_register_value(x), 4);
     }
 
+    #[test]
     fn mul() {
         let mut vm = Vm::default();
-        
+
         vm.set_register_value(x, 2);
 
         vm.exec(mul_u64_rr(x, x));
