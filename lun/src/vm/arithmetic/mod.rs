@@ -67,7 +67,7 @@ mod tests {
         vm.exec(add_i64_ri(x, -8));
         assert_eq!(vm.get_register_value(x) as i64, -4);
     }
-    
+
     #[test]
     fn add_u64() {
         let mut vm = Vm::default();
@@ -86,7 +86,7 @@ mod tests {
 
         vm.exec(mul_i64_ri(x, -1));
         assert_eq!(vm.get_register_value(x) as i64, -5);
-        
+
         vm.exec(mul_i64_ri(x, 2));
         assert_eq!(vm.get_register_value(x) as i64, -10);
 

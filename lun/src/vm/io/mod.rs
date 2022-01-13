@@ -1,29 +1,30 @@
-mod br;
+mod put;
 
 use crate::vm::{Instruction, Vm, VmRegister};
+use std::io;
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
-pub enum FlowInstruction {
-    br_i(i64),
+pub enum IoInstruction {
+    put_i(u8),
 }
 
-impl Instruction for FlowInstruction {
+impl Instruction for IoInstruction {
     fn exec(self, vm: &mut Vm) {
-        use FlowInstruction::*;
+        use IoInstruction::*;
 
         match self {
-            br_i(i) => br::i(vm, i),
+            put_i(i) => put::i(vm, i),
         }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{FlowInstruction::*, Vm, VmRegister::*};
+    use super::{IoInstruction::*, Vm, VmRegister::*};
 
     #[test]
-    fn br() {
+    fn put() {
         let mut vm = Vm::default();
     }
 }

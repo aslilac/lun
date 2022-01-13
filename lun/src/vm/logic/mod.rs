@@ -46,17 +46,17 @@ impl Instruction for LogicInstruction {
 #[cfg(test)]
 mod tests {
     use super::{LogicInstruction::*, Vm, VmRegister::*};
-    
+
     #[test]
     fn and() {
         let mut vm = Vm::default();
 
-        vm.set_register_value(x,7);
+        vm.set_register_value(x, 7);
         vm.exec(and_rr(x, x));
         assert_eq!(vm.get_register_value(x), 7);
 
-        vm.set_register_value(x,0b10101);
-        vm.set_register_value(y,0b11111);
+        vm.set_register_value(x, 0b10101);
+        vm.set_register_value(y, 0b11111);
         vm.exec(and_rr(x, y));
         assert_eq!(vm.get_register_value(x), 0b10101);
     }
@@ -65,12 +65,12 @@ mod tests {
     fn xor() {
         let mut vm = Vm::default();
 
-        vm.set_register_value(x,7);
+        vm.set_register_value(x, 7);
         vm.exec(xor_r(x));
         assert_eq!(vm.get_register_value(x), 0);
 
-        vm.set_register_value(x,0b10101);
-        vm.set_register_value(y,0b11111);
+        vm.set_register_value(x, 0b10101);
+        vm.set_register_value(y, 0b11111);
         vm.exec(xor_rr(x, y));
         assert_eq!(vm.get_register_value(x), 0b01010);
     }

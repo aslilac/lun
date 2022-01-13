@@ -2,12 +2,13 @@ pub mod arithmetic;
 pub mod err;
 pub mod flow;
 pub mod instruction;
+pub mod io;
+pub mod is;
 pub mod logic;
 
 pub use err::{VmError, VmResult};
 pub use instruction::Instruction;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-
 
 #[derive(Debug, Default)]
 pub struct Vm {
@@ -106,7 +107,7 @@ impl Vm {
         };
     }
 
-    pub fn update_register_value(&mut self, reg:VmRegister, reducer: &FnOnce(u64) -> u64) {
+    pub fn update_register_value(&mut self, reg: VmRegister, reducer: fn(u64) -> u64) {
         let prev = self.get_register_value(reg);
         self.set_register_value(reg, reducer(prev));
     }

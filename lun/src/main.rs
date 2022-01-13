@@ -2,24 +2,14 @@
 
 mod vm;
 
-use vm::{arithmetic::ArithmeticInstruction::*, logic::LogicInstruction::*, Vm, VmRegister::*};
+use vm::{is::put_i, Vm};
 
 fn main() -> Result<(), std::io::Error> {
     let mut vm = Vm::default();
 
-    vm.exec(add_u64_ri(x, 1));
-    vm.exec(add_u64_rr(x, x));
-    vm.exec(add_u64_rir(x, 1, y));
-    vm.exec(add_u64_rrr(x, x, y));
-
-    vm.exec(mul_u64_ri(x, 1));
-    vm.exec(mul_u64_rr(x, x));
-    vm.exec(mul_u64_rir(x, 1, y));
-    vm.exec(mul_u64_rrr(x, x, y));
-
-    vm.exec(xor_r(x));
-    vm.exec(xor_rr(x, x));
-    vm.exec(xor_rrr(x, x, x));
+    for byte in b"Hello sailor!\n" {
+        vm.exec(put_i(*byte));
+    }
 
     vm.inspect();
 
