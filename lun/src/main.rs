@@ -16,11 +16,6 @@ fn main() -> Result<(), std::io::Error> {
     vm.set_register_value(a, 0x0a21726f6c69); // ilor!\n
     vm.exec(put_w_r(a));
 
-    println!("{:?}", VmByteRegister::new(x, 0));
-    println!("{:?}", VmQwordRegister::new(x, 0));
-    println!("{:?}", VmHwordRegister::new(x, 0));
-    println!("{:?}", x);
-
     // vm.inspect();
 
     Ok(())

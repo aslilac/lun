@@ -22,6 +22,10 @@ pub enum ArithmeticInstruction {
     add_u16_rr(VmQwordRegister, VmQwordRegister),
     add_u16_rir(VmQwordRegister, u16, VmQwordRegister),
     add_u16_rrr(VmQwordRegister, VmQwordRegister, VmQwordRegister),
+    add_f32_ri(VmHwordRegister, f32),
+    add_f32_rr(VmHwordRegister, VmHwordRegister),
+    add_f32_rir(VmHwordRegister, f32, VmHwordRegister),
+    add_f32_rrr(VmHwordRegister, VmHwordRegister, VmHwordRegister),
     add_i32_ri(VmHwordRegister, i32),
     add_i32_rr(VmHwordRegister, VmHwordRegister),
     add_i32_rir(VmHwordRegister, i32, VmHwordRegister),
@@ -30,6 +34,10 @@ pub enum ArithmeticInstruction {
     add_u32_rr(VmHwordRegister, VmHwordRegister),
     add_u32_rir(VmHwordRegister, u32, VmHwordRegister),
     add_u32_rrr(VmHwordRegister, VmHwordRegister, VmHwordRegister),
+    add_f64_ri(VmRegister, f64),
+    add_f64_rr(VmRegister, VmRegister),
+    add_f64_rir(VmRegister, f64, VmRegister),
+    add_f64_rrr(VmRegister, VmRegister, VmRegister),
     add_i64_ri(VmRegister, i64),
     add_i64_rr(VmRegister, VmRegister),
     add_i64_rir(VmRegister, i64, VmRegister),
@@ -70,6 +78,10 @@ impl Instruction for ArithmeticInstruction {
             add_u16_rr(r1, r2) => add::u16_rrr(vm, r1, r2, r1),
             add_u16_rir(r1, i, rr) => add::u16_rir(vm, r1, i, rr),
             add_u16_rrr(r1, r2, rr) => add::u16_rrr(vm, r1, r2, rr),
+            add_f32_ri(r1, i) => add::f32_rir(vm, r1, i, r1),
+            add_f32_rr(r1, r2) => add::f32_rrr(vm, r1, r2, r1),
+            add_f32_rir(r1, i, rr) => add::f32_rir(vm, r1, i, rr),
+            add_f32_rrr(r1, r2, rr) => add::f32_rrr(vm, r1, r2, rr),
             add_i32_ri(r1, i) => add::i32_rir(vm, r1, i, r1),
             add_i32_rr(r1, r2) => add::i32_rrr(vm, r1, r2, r1),
             add_i32_rir(r1, i, rr) => add::i32_rir(vm, r1, i, rr),
@@ -78,6 +90,10 @@ impl Instruction for ArithmeticInstruction {
             add_u32_rr(r1, r2) => add::u32_rrr(vm, r1, r2, r1),
             add_u32_rir(r1, i, rr) => add::u32_rir(vm, r1, i, rr),
             add_u32_rrr(r1, r2, rr) => add::u32_rrr(vm, r1, r2, rr),
+            add_f64_ri(r1, i) => add::f64_rir(vm, r1, i, r1),
+            add_f64_rr(r1, r2) => add::f64_rrr(vm, r1, r2, r1),
+            add_f64_rir(r1, i, rr) => add::f64_rir(vm, r1, i, rr),
+            add_f64_rrr(r1, r2, rr) => add::f64_rrr(vm, r1, r2, rr),
             add_i64_ri(r1, i) => add::i64_rir(vm, r1, i, r1),
             add_i64_rr(r1, r2) => add::i64_rrr(vm, r1, r2, r1),
             add_i64_rir(r1, i, rr) => add::i64_rir(vm, r1, i, rr),
@@ -101,6 +117,8 @@ impl Instruction for ArithmeticInstruction {
 
 #[cfg(test)]
 mod tests {
+    use crate::prelude::VmHwordRegister;
+
     use super::{super::iprelude::*, ArithmeticInstruction::*};
 
     #[test]
@@ -149,6 +167,26 @@ mod tests {
         vm.exec(add_u8_rr(xb0, xb1));
         assert_eq!(vm.get_partial_register_value(xb0), 0x01);
         assert_eq!(vm.ov, false);
+    }
+
+    #[test]
+    fn add_f32() {
+        let mut vm = Vm::default();
+        let xh0 = VmHwordRegister::new(x, 0);
+
+        vm.exec(add_f32_ri(xh0, 1.0));
+        assert_eq!(vm.get_partial_register_value(xh0), 0x3f800000);
+    }
+
+    #[test]
+    fn add_f64() {
+        let mut vm = Vm::default();
+
+        vm.exec(add_f64_ri(x, 1.0));
+        vm.exec(add_f64_ri(y, 5.47));
+        vm.exec(add_f64_rr(x, y));
+        vm.exec(add_f64_rrr(x, y, a));
+        assert_eq!(vm.get_register_value(a), 0x4027e147ae147ae1);
     }
 
     #[test]

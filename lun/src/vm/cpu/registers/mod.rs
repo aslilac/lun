@@ -123,3 +123,17 @@ impl RegisterSet {
         self.set_register_value(reg, set_value);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::vm::VmRegister::*;
+
+    #[test]
+    fn register_names() {
+        assert_eq!(format!("{:?}", VmByteRegister::new(x, 0)), "xb0");
+        assert_eq!(format!("{:?}", VmQwordRegister::new(x, 0)), "xq0");
+        assert_eq!(format!("{:?}", VmHwordRegister::new(x, 0)), "xh0");
+        assert_eq!(format!("{:?}", x), "x");
+    }
+}

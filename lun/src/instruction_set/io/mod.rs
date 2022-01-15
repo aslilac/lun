@@ -55,9 +55,9 @@ mod tests {
             vm.mem.push(i);
         }
 
-        vm.exec(pop_r(a));
-        vm.exec(pop_r(b));
-        vm.exec(pop_r(c));
+        vm.exec(pop_w_r(a));
+        vm.exec(pop_w_r(b));
+        vm.exec(pop_w_r(c));
 
         assert_eq!(vm.get_register_value(a), 0);
         assert_eq!(vm.get_register_value(b), 1);
@@ -72,17 +72,17 @@ mod tests {
         vm.set_register_value(x, 1);
         vm.mem = vec![0; 3];
 
-        vm.exec(push_r(x));
+        vm.exec(push_w_r(x));
         assert_eq!(vm.mem[0], 0);
         assert_eq!(vm.mem[1], 0);
         assert_eq!(vm.mem[2], 1);
 
-        vm.exec(push_r(x));
+        vm.exec(push_w_r(x));
         assert_eq!(vm.mem[0], 0);
         assert_eq!(vm.mem[1], 1);
         assert_eq!(vm.mem[2], 1);
 
-        vm.exec(push_r(x));
+        vm.exec(push_w_r(x));
         assert_eq!(vm.mem[0], 1);
         assert_eq!(vm.mem[1], 1);
         assert_eq!(vm.mem[2], 1);
@@ -94,7 +94,7 @@ mod tests {
     fn put() {
         let mut vm = Vm::default();
 
-        vm.exec(put_i('a' as u8));
+        vm.exec(put_b_i('a' as u8));
         assert_eq!(vm.dsp_buf.buf()[0], 'a' as u8);
         vm.dsp_buf.clear();
     }

@@ -106,33 +106,19 @@ mod tests {
     use super::*;
     use crate::vm::{Vm, VmRegister::*};
 
+    #[test]
     fn byte_registers() {
         let mut vm = Vm::default();
-
         vm.set_register_value(x, 0x0706050403020100);
 
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 0)), 0);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 1)), 1);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 2)), 2);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 3)), 3);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 4)), 4);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 5)), 5);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 6)), 6);
-        assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, 7)), 7);
-
-        vm.set_partial_register_value(VmByteRegister::new(y, 0), 0);
-        vm.set_partial_register_value(VmByteRegister::new(y, 1), 1);
-        vm.set_partial_register_value(VmByteRegister::new(y, 2), 2);
-        vm.set_partial_register_value(VmByteRegister::new(y, 3), 3);
-        vm.set_partial_register_value(VmByteRegister::new(y, 4), 4);
-        vm.set_partial_register_value(VmByteRegister::new(y, 5), 5);
-        vm.set_partial_register_value(VmByteRegister::new(y, 6), 6);
-        vm.set_partial_register_value(VmByteRegister::new(y, 7), 7);
+        for i in 0..8 {
+            assert_eq!(vm.get_partial_register_value(VmByteRegister::new(x, i)), i);
+            vm.set_partial_register_value(VmByteRegister::new(y, i), i);
+        }
 
         assert_eq!(vm.get_register_value(y), 0x0706050403020100);
 
         vm.set_partial_register_value(VmByteRegister::new(y, 4), 0xff);
-
         assert_eq!(vm.get_register_value(y), 0x070605ff03020100);
     }
 }
