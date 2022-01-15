@@ -55,6 +55,62 @@
 -   [ ] cmp_h_rr
 -   [x] cmp_w_r
 -   [x] cmp_w_rr
+-   [ ] div_i8_ri
+-   [ ] div_i8_rr
+-   [ ] div_i8_rir
+-   [ ] div_i8_rrr
+-   [ ] div_i8_rirr
+-   [ ] div_i8_rrrr
+-   [ ] div_u8_ri
+-   [ ] div_u8_rr
+-   [ ] div_u8_rir
+-   [ ] div_u8_rrr
+-   [ ] div_u8_rirr
+-   [ ] div_u8_rrrr
+-   [ ] div_i16_ri
+-   [ ] div_i16_rr
+-   [ ] div_i16_rir
+-   [ ] div_i16_rrr
+-   [ ] div_i16_rirr
+-   [ ] div_i16_rrrr
+-   [ ] div_u16_ri
+-   [ ] div_u16_rr
+-   [ ] div_u16_rir
+-   [ ] div_u16_rrr
+-   [ ] div_u16_rirr
+-   [ ] div_u16_rrrr
+-   [ ] div_f32_ri
+-   [ ] div_f32_rr
+-   [ ] div_f32_rir
+-   [ ] div_f32_rrr
+-   [ ] div_i32_ri
+-   [ ] div_i32_rr
+-   [ ] div_i32_rir
+-   [ ] div_i32_rrr
+-   [ ] div_i32_rirr
+-   [ ] div_i32_rrrr
+-   [ ] div_u32_ri
+-   [ ] div_u32_rr
+-   [ ] div_u32_rir
+-   [ ] div_u32_rrr
+-   [ ] div_u32_rirr
+-   [ ] div_u32_rrrr
+-   [ ] div_f64_ri
+-   [ ] div_f64_rr
+-   [ ] div_f64_rir
+-   [ ] div_f64_rrr
+-   [ ] div_i64_ri
+-   [ ] div_i64_rr
+-   [ ] div_i64_rir
+-   [ ] div_i64_rrr
+-   [ ] div_i64_rirr
+-   [ ] div_i64_rrrr
+-   [ ] div_u64_ri
+-   [ ] div_u64_rr
+-   [ ] div_u64_rir
+-   [ ] div_u64_rrr
+-   [ ] div_u64_rirr
+-   [ ] div_u64_rrrr
 -   [ ] min_i8_ri
 -   [ ] min_i8_rr
 -   [ ] min_i8_rir
@@ -71,6 +127,10 @@
 -   [ ] min_u16_rr
 -   [ ] min_u16_rir
 -   [ ] min_u16_rrr
+-   [ ] min_f32_ri
+-   [ ] min_f32_rr
+-   [ ] min_f32_rir
+-   [ ] min_f32_rrr
 -   [ ] min_i32_ri
 -   [ ] min_i32_rr
 -   [ ] min_i32_rir
@@ -79,6 +139,10 @@
 -   [ ] min_u32_rr
 -   [ ] min_u32_rir
 -   [ ] min_u32_rrr
+-   [ ] min_f64_ri
+-   [ ] min_f64_rr
+-   [ ] min_f64_rir
+-   [ ] min_f64_rrr
 -   [ ] min_i64_ri
 -   [ ] min_i64_rr
 -   [ ] min_i64_rir
@@ -103,6 +167,10 @@
 -   [ ] mul_u16_rr
 -   [ ] mul_u16_rir
 -   [ ] mul_u16_rrr
+-   [ ] mul_f32_ri
+-   [ ] mul_f32_rr
+-   [ ] mul_f32_rir
+-   [ ] mul_f32_rrr
 -   [ ] mul_i32_ri
 -   [ ] mul_i32_rr
 -   [ ] mul_i32_rir
@@ -111,6 +179,10 @@
 -   [ ] mul_u32_rr
 -   [ ] mul_u32_rir
 -   [ ] mul_u32_rrr
+-   [ ] mul_f64_ri
+-   [ ] mul_f64_rr
+-   [ ] mul_f64_rir
+-   [ ] mul_f64_rrr
 -   [x] mul_i64_ri
 -   [x] mul_i64_rr
 -   [x] mul_i64_rir
@@ -119,6 +191,10 @@
 -   [x] mul_u64_rr
 -   [x] mul_u64_rir
 -   [x] mul_u64_rrr
+-   [ ] mv_b_rr
+-   [ ] mv_q_rr
+-   [ ] mv_h_rr
+-   [ ] mv_w_rr
 -   [x] or_b_rr
 -   [x] or_b_rrr
 -   [x] or_q_rr

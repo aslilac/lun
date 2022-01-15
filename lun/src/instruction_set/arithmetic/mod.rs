@@ -117,8 +117,6 @@ impl Instruction for ArithmeticInstruction {
 
 #[cfg(test)]
 mod tests {
-    use crate::prelude::VmHwordRegister;
-
     use super::{super::iprelude::*, ArithmeticInstruction::*};
 
     #[test]

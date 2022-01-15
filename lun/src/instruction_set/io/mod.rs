@@ -1,3 +1,4 @@
+mod mv;
 mod pop;
 mod push;
 mod put;
@@ -8,6 +9,10 @@ use std::fmt;
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum IoInstruction {
+    mv_b_rr(VmByteRegister, VmByteRegister),
+    mv_q_rr(VmQwordRegister, VmQwordRegister),
+    mv_h_rr(VmHwordRegister, VmHwordRegister),
+    mv_w_rr(VmRegister, VmRegister),
     pop_w_r(VmRegister),
     push_w_r(VmRegister),
     put_b_i(u8),
@@ -20,6 +25,10 @@ impl Instruction for IoInstruction {
         use IoInstruction::*;
 
         match self {
+            mv_b_rr(r1, rr) => mv::t_rr(vm, r1, rr),
+            mv_q_rr(r1, rr) => mv::t_rr(vm, r1, rr),
+            mv_h_rr(r1, rr) => mv::t_rr(vm, r1, rr),
+            mv_w_rr(r1, r2) => mv::w_rr(vm, r1, r2),
             pop_w_r(r1) => pop::w_r(vm, r1),
             push_w_r(r1) => push::w_r(vm, r1),
             put_b_i(i) => put::b_i(vm, i),
@@ -34,6 +43,10 @@ impl fmt::Display for IoInstruction {
         use IoInstruction::*;
 
         match self {
+            mv_b_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
+            mv_q_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
+            mv_h_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
+            mv_w_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
             pop_w_r(r1) => write!(disp, "pop {:?}", r1),
             push_w_r(r1) => write!(disp, "push {:?}", r1),
             put_b_i(i) => write!(disp, "put {}", *i as char),

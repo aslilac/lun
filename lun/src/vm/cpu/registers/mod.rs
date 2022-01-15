@@ -3,10 +3,13 @@ mod partial;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 pub use partial::*;
 
+// General register thoughts:
+// - one of these could be used to store the thread/core number?
+
 #[derive(Debug, Default)]
 pub struct RegisterSet {
     p: u64, // program counter
-    q: u64, // used for returns values
+    q: u64, // used for return values
     r: u64, // used for return values
     s: u64, // stack pointer
     t: u64, // use for timers?
