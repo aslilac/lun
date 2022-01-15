@@ -35,7 +35,7 @@ impl Default for Vm {
         Self {
             rs: Default::default(),
 
-            mem: Vec::with_capacity(Self::DEFAULT_MEMORY_CAPACITY),
+            mem: Default::default(),
             disp: BufWriter::with_capacity(Self::DISPLAY_BUFFER_CAPACITY, io::stdout()),
 
             eq: Default::default(),
@@ -47,15 +47,24 @@ impl Default for Vm {
     }
 }
 
-impl Drop for Vm {
-    fn drop(&mut self) {
-        let _ = self.disp.flush();
-    }
-}
-
 impl Vm {
     const DISPLAY_BUFFER_CAPACITY: usize = 1024;
     const DEFAULT_MEMORY_CAPACITY: usize = 1024;
+
+    pub fn new() -> Self {
+        Self {
+            rs: Default::default(),
+
+            mem: Vec::with_capacity(Self::DEFAULT_MEMORY_CAPACITY),
+            disp: BufWriter::with_capacity(Self::DISPLAY_BUFFER_CAPACITY, io::stdout()),
+
+            eq: Default::default(),
+            ng: Default::default(),
+            ov: Default::default(),
+            halt: Default::default(),
+            result: Default::default(),
+        }
+    }
 
     pub fn get_register_value(&self, reg: VmRegister) -> u64 {
         self.rs.get_register_value(reg)
