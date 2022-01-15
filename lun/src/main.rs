@@ -17,7 +17,5 @@ fn main() -> Result<(), std::io::Error> {
     vm.set_register_value(a, 0x0a21_726f6c69); // ilor!\n
     vm.exec(put_w_r(a));
 
-    // vm.inspect();
-
     Ok(())
 }

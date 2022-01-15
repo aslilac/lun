@@ -50,14 +50,17 @@ impl DisplayTarget {
         io::BufWriter::with_capacity(capacity, Self::sink())
     }
 
+    #[cfg(not(test))]
     pub fn stdout() -> Self {
         Self::Stdout(io::stdout())
     }
 
+    #[cfg(not(test))]
     pub fn stdout_buffer() -> BufWriter<Self> {
         io::BufWriter::new(Self::stdout())
     }
 
+    #[cfg(not(test))]
     pub fn stdout_buffer_with_capacity(capacity: usize) -> BufWriter<Self> {
         io::BufWriter::with_capacity(capacity, Self::stdout())
     }
