@@ -2,17 +2,14 @@ pub mod cpu;
 pub mod err;
 pub mod prelude;
 
+use crate::base::{DisplayBuffer, DisplayTarget};
 use crate::isa::prelude::Instruction;
 pub use cpu::registers::{
     PartialRegister, RegisterSet, VmByteRegister, VmHwordRegister, VmQwordRegister, VmRegister,
     VmRegister::*,
 };
 pub use err::{VmError, VmResult};
-use std::{
-    fmt::Debug,
-    io,
-    io::{BufWriter, Write},
-};
+use std::fmt::Debug;
 
 // TODO: Remove the pub(crate) bits from this, replace with pub methods
 #[derive(Debug)]
@@ -20,7 +17,7 @@ pub struct Vm {
     rs: RegisterSet,
 
     pub(crate) mem: Vec<u64>,
-    pub(crate) disp: BufWriter<io::Stdout>,
+    pub(crate) disp: DisplayBuffer,
 
     pub(crate) eq: bool,
     pub(crate) ng: bool,
@@ -36,7 +33,7 @@ impl Default for Vm {
             rs: Default::default(),
 
             mem: Default::default(),
-            disp: BufWriter::with_capacity(Self::DISPLAY_BUFFER_CAPACITY, io::stdout()),
+            disp: DisplayTarget::buffer_with_capacity(Self::DISPLAY_BUFFER_CAPACITY),
 
             eq: Default::default(),
             ng: Default::default(),
@@ -56,7 +53,7 @@ impl Vm {
             rs: Default::default(),
 
             mem: Vec::with_capacity(Self::DEFAULT_MEMORY_CAPACITY),
-            disp: BufWriter::with_capacity(Self::DISPLAY_BUFFER_CAPACITY, io::stdout()),
+            disp: DisplayTarget::buffer_with_capacity(Self::DISPLAY_BUFFER_CAPACITY),
 
             eq: Default::default(),
             ng: Default::default(),

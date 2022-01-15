@@ -103,8 +103,7 @@ mod tests {
         assert_eq!(vm.get_register_value(s), 0);
     }
 
-    // #[test]
-    // TODO: Need to figure out a way to get a Vm with an `io::BufWriter<io::Sink>`
+    #[test]
     fn put() {
         let mut vm = Vm::default();
 
