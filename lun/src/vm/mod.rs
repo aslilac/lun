@@ -88,7 +88,7 @@ impl Vm {
     }
 
     pub fn exec(&mut self, instruction: impl Instruction + Debug) {
-        println!("{instruction:?}");
+        println!("{:?}", instruction);
         instruction.exec(self);
     }
 

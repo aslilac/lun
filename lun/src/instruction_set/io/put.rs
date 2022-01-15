@@ -1,7 +1,7 @@
 use super::super::iprelude::*;
 
 pub fn i(vm: &mut Vm, i: u8) {
-    println!("{i:x}");
+    println!("{:x}", i);
     vm.dsp_buf.push(i);
 }
 
