@@ -10,21 +10,30 @@ impl Default for DisplayBuffer {
 }
 
 impl DisplayBuffer {
-    pub fn flush(&mut self) {
+    pub fn buf(&self) -> &Vec<u8> {
         let DisplayBuffer(buf) = self;
-        let _ = io::stdout().lock().write(buf.as_slice());
-        buf.clear();
+        buf
+    }
+
+    pub fn mbuf(&mut self) -> &mut Vec<u8> {
+        let DisplayBuffer(buf) = self;
+        buf
     }
 
     pub fn clear(&mut self) {
-        let DisplayBuffer(buf) = self;
-        buf.clear();
+        self.mbuf().clear();
+    }
+
+
+    pub fn flush(&mut self) {
+        let _ = io::stdout().lock().write(self.buf().as_slice());
+        self.clear();
     }
 
     pub fn push(&mut self, byte: u8) {
         {
             let should_flush = {
-                let DisplayBuffer(buf) = self;
+                let buf = self.buf();
                 buf.len() == buf.capacity()
             };
 
@@ -33,7 +42,6 @@ impl DisplayBuffer {
             }
         }
 
-        let DisplayBuffer(buf) = self;
-        buf.push(byte);
+        self.mbuf().push(byte);
     }
 }

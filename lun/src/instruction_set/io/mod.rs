@@ -92,7 +92,7 @@ mod tests {
         let mut vm = Vm::default();
 
         vm.exec(put_i('a' as u8));
-        assert_eq!(vm.dsp_buf.0[0], 'a' as u8);
+        assert_eq!(vm.dsp_buf.buf()[0], 'a' as u8);
         vm.dsp_buf.clear();
     }
 }
