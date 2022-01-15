@@ -2,8 +2,13 @@
 name = "lun"
 version = "0.0.1"
 authors = ["McKayla Washburn <mckayla@hey.com>"]
+description = "A cute lil vm for fun :)"
+keywords = ["vm"]
+license = "MIT"
+homepage = "https://github.com/aslilac/lun"
+repository = "https://github.com/aslilac/lun"
+documentation = "https://docs.rs/crate/lun"
 edition = "2021"
-description = "A virtual machine designed to run Lun Machine-code"
 
 default-run = "lun"
 

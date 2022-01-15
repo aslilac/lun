@@ -12,7 +12,7 @@ fn add a: u64, b: u64 -> u64
 
 interface IPerson
 	name: string
-	age: number
+	age: usize
 
 interface IFriend extends IPerson
 	type: 'friend'
@@ -28,10 +28,10 @@ class Friend implements IFriend
 	type = 'friend'
 
 	fn constructor(
-		readonly name,
-		readonly age,
-		readonly birthday,
-		readonly bff?,
+		readonly name: string,
+		readonly age: usize,
+		readonly birthday: Date,
+		readonly bff?: boolean,
 	)
 		# I don't know what to put here but this is where the constructor body would go
 
