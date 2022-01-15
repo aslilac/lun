@@ -1,6 +1,6 @@
 mod br;
 
-use crate::vm::{Instruction, Vm, VmRegister};
+use super::iprelude::*;
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -15,15 +15,5 @@ impl Instruction for FlowInstruction {
         match self {
             br_i(i) => br::i(vm, i),
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::{FlowInstruction::*, Vm, VmRegister::*};
-
-    #[test]
-    fn br() {
-        let mut vm = Vm::default();
     }
 }

@@ -3,7 +3,7 @@ mod cmp;
 mod or;
 mod xor;
 
-use crate::vm::{Instruction, Vm, VmRegister};
+use super::iprelude::*;
 
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
@@ -45,7 +45,7 @@ impl Instruction for LogicInstruction {
 
 #[cfg(test)]
 mod tests {
-    use super::{LogicInstruction::*, Vm, VmRegister::*};
+    use super::{super::iprelude::*, LogicInstruction::*};
 
     #[test]
     fn and() {

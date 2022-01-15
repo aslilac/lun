@@ -1,4 +1,4 @@
-use crate::vm::{Vm, VmRegister};
+use super::super::iprelude::*;
 
 pub fn r(vm: &mut Vm, r1: VmRegister) {
     let r1v = vm.get_register_value(r1);

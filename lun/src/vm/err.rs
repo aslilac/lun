@@ -10,6 +10,9 @@ pub enum VmResult {
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum VmError {
     BrOverflow,
+    RegOverflow,
+    StackOverflow,
+    StackUnderflow,
 }
 
 impl Default for VmResult {
