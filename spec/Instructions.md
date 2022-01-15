@@ -1,221 +1,344 @@
--   [x] add_i8_ri
--   [x] add_i8_rr
--   [x] add_i8_rir
--   [x] add_i8_rrr
--   [x] add_u8_ri
--   [x] add_u8_rr
--   [x] add_u8_rir
--   [x] add_u8_rrr
--   [x] add_i16_ri
--   [x] add_i16_rr
--   [x] add_i16_rir
--   [x] add_i16_rrr
--   [x] add_u16_ri
--   [x] add_u16_rr
--   [x] add_u16_rir
--   [x] add_u16_rrr
--   [x] add_f32_ri
--   [x] add_f32_rr
--   [x] add_f32_rir
--   [x] add_f32_rrr
--   [x] add_i32_ri
--   [x] add_i32_rr
--   [x] add_i32_rir
--   [x] add_i32_rrr
--   [x] add_u32_ri
--   [x] add_u32_rr
--   [x] add_u32_rir
--   [x] add_u32_rrr
--   [x] add_f64_ri
--   [x] add_f64_rr
--   [x] add_f64_rir
--   [x] add_f64_rrr
--   [x] add_i64_ri
--   [x] add_i64_rr
--   [x] add_i64_rir
--   [x] add_i64_rrr
--   [x] add_u64_ri
--   [x] add_u64_rr
--   [x] add_u64_rir
--   [x] add_u64_rrr
--   [x] and_b_rr
--   [x] and_b_rrr
--   [x] and_q_rr
--   [x] and_q_rrr
--   [x] and_h_rr
--   [x] and_h_rrr
--   [x] and_w_rr
--   [x] and_w_rrr
--   [x] br_i
--   [ ] cmp_b_r
--   [ ] cmp_b_rr
--   [ ] cmp_q_r
--   [ ] cmp_q_rr
--   [ ] cmp_h_r
--   [ ] cmp_h_rr
--   [x] cmp_w_r
--   [x] cmp_w_rr
--   [ ] div_i8_ri
--   [ ] div_i8_rr
--   [ ] div_i8_rir
--   [ ] div_i8_rrr
--   [ ] div_i8_rirr
--   [ ] div_i8_rrrr
--   [ ] div_u8_ri
--   [ ] div_u8_rr
--   [ ] div_u8_rir
--   [ ] div_u8_rrr
--   [ ] div_u8_rirr
--   [ ] div_u8_rrrr
--   [ ] div_i16_ri
--   [ ] div_i16_rr
--   [ ] div_i16_rir
--   [ ] div_i16_rrr
--   [ ] div_i16_rirr
--   [ ] div_i16_rrrr
--   [ ] div_u16_ri
--   [ ] div_u16_rr
--   [ ] div_u16_rir
--   [ ] div_u16_rrr
--   [ ] div_u16_rirr
--   [ ] div_u16_rrrr
--   [ ] div_f32_ri
--   [ ] div_f32_rr
--   [ ] div_f32_rir
--   [ ] div_f32_rrr
--   [ ] div_i32_ri
--   [ ] div_i32_rr
--   [ ] div_i32_rir
--   [ ] div_i32_rrr
--   [ ] div_i32_rirr
--   [ ] div_i32_rrrr
--   [ ] div_u32_ri
--   [ ] div_u32_rr
--   [ ] div_u32_rir
--   [ ] div_u32_rrr
--   [ ] div_u32_rirr
--   [ ] div_u32_rrrr
--   [ ] div_f64_ri
--   [ ] div_f64_rr
--   [ ] div_f64_rir
--   [ ] div_f64_rrr
--   [ ] div_i64_ri
--   [ ] div_i64_rr
--   [ ] div_i64_rir
--   [ ] div_i64_rrr
--   [ ] div_i64_rirr
--   [ ] div_i64_rrrr
--   [ ] div_u64_ri
--   [ ] div_u64_rr
--   [ ] div_u64_rir
--   [ ] div_u64_rrr
--   [ ] div_u64_rirr
--   [ ] div_u64_rrrr
--   [ ] min_i8_ri
--   [ ] min_i8_rr
--   [ ] min_i8_rir
--   [ ] min_i8_rrr
--   [ ] min_u8_ri
--   [ ] min_u8_rr
--   [ ] min_u8_rir
--   [ ] min_u8_rrr
--   [ ] min_i16_ri
--   [ ] min_i16_rr
--   [ ] min_i16_rir
--   [ ] min_i16_rrr
--   [ ] min_u16_ri
--   [ ] min_u16_rr
--   [ ] min_u16_rir
--   [ ] min_u16_rrr
--   [ ] min_f32_ri
--   [ ] min_f32_rr
--   [ ] min_f32_rir
--   [ ] min_f32_rrr
--   [ ] min_i32_ri
--   [ ] min_i32_rr
--   [ ] min_i32_rir
--   [ ] min_i32_rrr
--   [ ] min_u32_ri
--   [ ] min_u32_rr
--   [ ] min_u32_rir
--   [ ] min_u32_rrr
--   [ ] min_f64_ri
--   [ ] min_f64_rr
--   [ ] min_f64_rir
--   [ ] min_f64_rrr
--   [ ] min_i64_ri
--   [ ] min_i64_rr
--   [ ] min_i64_rir
--   [ ] min_i64_rrr
--   [ ] min_u64_ri
--   [ ] min_u64_rr
--   [ ] min_u64_rir
--   [ ] min_u64_rrr
--   [ ] mul_i8_ri
--   [ ] mul_i8_rr
--   [ ] mul_i8_rir
--   [ ] mul_i8_rrr
--   [ ] mul_u8_ri
--   [ ] mul_u8_rr
--   [ ] mul_u8_rir
--   [ ] mul_u8_rrr
--   [ ] mul_i16_ri
--   [ ] mul_i16_rr
--   [ ] mul_i16_rir
--   [ ] mul_i16_rrr
--   [ ] mul_u16_ri
--   [ ] mul_u16_rr
--   [ ] mul_u16_rir
--   [ ] mul_u16_rrr
--   [ ] mul_f32_ri
--   [ ] mul_f32_rr
--   [ ] mul_f32_rir
--   [ ] mul_f32_rrr
--   [ ] mul_i32_ri
--   [ ] mul_i32_rr
--   [ ] mul_i32_rir
--   [ ] mul_i32_rrr
--   [ ] mul_u32_ri
--   [ ] mul_u32_rr
--   [ ] mul_u32_rir
--   [ ] mul_u32_rrr
--   [ ] mul_f64_ri
--   [ ] mul_f64_rr
--   [ ] mul_f64_rir
--   [ ] mul_f64_rrr
--   [x] mul_i64_ri
--   [x] mul_i64_rr
--   [x] mul_i64_rir
--   [x] mul_i64_rrr
--   [x] mul_u64_ri
--   [x] mul_u64_rr
--   [x] mul_u64_rir
--   [x] mul_u64_rrr
--   [x] mv_b_rr
--   [x] mv_q_rr
--   [x] mv_h_rr
--   [x] mv_w_rr
--   [x] or_b_rr
--   [x] or_b_rrr
--   [x] or_q_rr
--   [x] or_q_rrr
--   [x] or_h_rr
--   [x] or_h_rrr
--   [x] or_w_rr
--   [x] or_w_rrr
--   [x] pop_w_r
--   [x] push_w_r
--   [x] put_b_i
--   [x] put_w_r
--   [x] xor_b_r
--   [x] xor_b_rr
--   [x] xor_b_rrr
--   [x] xor_q_r
--   [x] xor_q_rr
--   [x] xor_q_rrr
--   [x] xor_h_r
--   [x] xor_h_rr
--   [x] xor_h_rrr
--   [x] xor_w_r
--   [x] xor_w_rr
--   [x] xor_w_rrr
+### Todo
+
+-   Memory read (`mi`?)
+    -   Oooo maybe `mi` should be multiple-in
+-   Memory write (`mo`?)
+    -   Some with `mo` but multiple out
+-   Shift but it comes back on the other side?
+    -   I think typically this is rotate vs shift
+-   Flesh out `exp`
+-   Conditional branching
+-   `halt`?
+-   stack peeking
+
+### `add`
+
+-   [x] `add_i8_ri`
+-   [x] `add_i8_rr`
+-   [x] `add_i8_rir`
+-   [x] `add_i8_rrr`
+-   [x] `add_u8_ri`
+-   [x] `add_u8_rr`
+-   [x] `add_u8_rir`
+-   [x] `add_u8_rrr`
+-   [x] `add_i16_ri`
+-   [x] `add_i16_rr`
+-   [x] `add_i16_rir`
+-   [x] `add_i16_rrr`
+-   [x] `add_u16_ri`
+-   [x] `add_u16_rr`
+-   [x] `add_u16_rir`
+-   [x] `add_u16_rrr`
+-   [x] `add_f32_ri`
+-   [x] `add_f32_rr`
+-   [x] `add_f32_rir`
+-   [x] `add_f32_rrr`
+-   [x] `add_i32_ri`
+-   [x] `add_i32_rr`
+-   [x] `add_i32_rir`
+-   [x] `add_i32_rrr`
+-   [x] `add_u32_ri`
+-   [x] `add_u32_rr`
+-   [x] `add_u32_rir`
+-   [x] `add_u32_rrr`
+-   [x] `add_f64_ri`
+-   [x] `add_f64_rr`
+-   [x] `add_f64_rir`
+-   [x] `add_f64_rrr`
+-   [x] `add_i64_ri`
+-   [x] `add_i64_rr`
+-   [x] `add_i64_rir`
+-   [x] `add_i64_rrr`
+-   [x] `add_u64_ri`
+-   [x] `add_u64_rr`
+-   [x] `add_u64_rir`
+-   [x] `add_u64_rrr`
+
+### `and`
+
+-   [x] `and_b_rr`
+-   [x] `and_b_rrr`
+-   [x] `and_q_rr`
+-   [x] `and_q_rrr`
+-   [x] `and_h_rr`
+-   [x] `and_h_rrr`
+-   [x] `and_w_rr`
+-   [x] `and_w_rrr`
+
+### `br`
+
+-   [x] `br_i`
+
+### `cmp`
+
+-   [ ] `cmp_b_r`
+-   [ ] `cmp_b_rr`
+-   [ ] `cmp_q_r`
+-   [ ] `cmp_q_rr`
+-   [ ] `cmp_h_r`
+-   [ ] `cmp_h_rr`
+-   [x] `cmp_w_r`
+-   [x] `cmp_w_rr`
+
+### `div`
+
+-   [ ] `div_i8_ri`
+-   [ ] `div_i8_rr`
+-   [ ] `div_i8_rir`
+-   [ ] `div_i8_rrr`
+-   [ ] `div_i8_rirr`
+-   [ ] `div_i8_rrrr`
+-   [ ] `div_u8_ri`
+-   [ ] `div_u8_rr`
+-   [ ] `div_u8_rir`
+-   [ ] `div_u8_rrr`
+-   [ ] `div_u8_rirr`
+-   [ ] `div_u8_rrrr`
+-   [ ] `div_i16_ri`
+-   [ ] `div_i16_rr`
+-   [ ] `div_i16_rir`
+-   [ ] `div_i16_rrr`
+-   [ ] `div_i16_rirr`
+-   [ ] `div_i16_rrrr`
+-   [ ] `div_u16_ri`
+-   [ ] `div_u16_rr`
+-   [ ] `div_u16_rir`
+-   [ ] `div_u16_rrr`
+-   [ ] `div_u16_rirr`
+-   [ ] `div_u16_rrrr`
+-   [ ] `div_f32_ri`
+-   [ ] `div_f32_rr`
+-   [ ] `div_f32_rir`
+-   [ ] `div_f32_rrr`
+-   [ ] `div_i32_ri`
+-   [ ] `div_i32_rr`
+-   [ ] `div_i32_rir`
+-   [ ] `div_i32_rrr`
+-   [ ] `div_i32_rirr`
+-   [ ] `div_i32_rrrr`
+-   [ ] `div_u32_ri`
+-   [ ] `div_u32_rr`
+-   [ ] `div_u32_rir`
+-   [ ] `div_u32_rrr`
+-   [ ] `div_u32_rirr`
+-   [ ] `div_u32_rrrr`
+-   [ ] `div_f64_ri`
+-   [ ] `div_f64_rr`
+-   [ ] `div_f64_rir`
+-   [ ] `div_f64_rrr`
+-   [ ] `div_i64_ri`
+-   [ ] `div_i64_rr`
+-   [ ] `div_i64_rir`
+-   [ ] `div_i64_rrr`
+-   [ ] `div_i64_rirr`
+-   [ ] `div_i64_rrrr`
+-   [ ] `div_u64_ri`
+-   [ ] `div_u64_rr`
+-   [ ] `div_u64_rir`
+-   [ ] `div_u64_rrr`
+-   [ ] `div_u64_rirr`
+-   [ ] `div_u64_rrrr`
+
+### `exp`
+
+-   [ ] `exp_u64_rrr`
+
+### `min`
+
+-   [ ] `min_i8_ri`
+-   [ ] `min_i8_rr`
+-   [ ] `min_i8_rir`
+-   [ ] `min_i8_rrr`
+-   [ ] `min_u8_ri`
+-   [ ] `min_u8_rr`
+-   [ ] `min_u8_rir`
+-   [ ] `min_u8_rrr`
+-   [ ] `min_i16_ri`
+-   [ ] `min_i16_rr`
+-   [ ] `min_i16_rir`
+-   [ ] `min_i16_rrr`
+-   [ ] `min_u16_ri`
+-   [ ] `min_u16_rr`
+-   [ ] `min_u16_rir`
+-   [ ] `min_u16_rrr`
+-   [ ] `min_f32_ri`
+-   [ ] `min_f32_rr`
+-   [ ] `min_f32_rir`
+-   [ ] `min_f32_rrr`
+-   [ ] `min_i32_ri`
+-   [ ] `min_i32_rr`
+-   [ ] `min_i32_rir`
+-   [ ] `min_i32_rrr`
+-   [ ] `min_u32_ri`
+-   [ ] `min_u32_rr`
+-   [ ] `min_u32_rir`
+-   [ ] `min_u32_rrr`
+-   [ ] `min_f64_ri`
+-   [ ] `min_f64_rr`
+-   [ ] `min_f64_rir`
+-   [ ] `min_f64_rrr`
+-   [ ] `min_i64_ri`
+-   [ ] `min_i64_rr`
+-   [ ] `min_i64_rir`
+-   [ ] `min_i64_rrr`
+-   [ ] `min_u64_ri`
+-   [ ] `min_u64_rr`
+-   [ ] `min_u64_rir`
+-   [ ] `min_u64_rrr`
+
+### `mul`
+
+-   [ ] `mul_i8_ri`
+-   [ ] `mul_i8_rr`
+-   [ ] `mul_i8_rir`
+-   [ ] `mul_i8_rrr`
+-   [ ] `mul_u8_ri`
+-   [ ] `mul_u8_rr`
+-   [ ] `mul_u8_rir`
+-   [ ] `mul_u8_rrr`
+-   [ ] `mul_i16_ri`
+-   [ ] `mul_i16_rr`
+-   [ ] `mul_i16_rir`
+-   [ ] `mul_i16_rrr`
+-   [ ] `mul_u16_ri`
+-   [ ] `mul_u16_rr`
+-   [ ] `mul_u16_rir`
+-   [ ] `mul_u16_rrr`
+-   [ ] `mul_f32_ri`
+-   [ ] `mul_f32_rr`
+-   [ ] `mul_f32_rir`
+-   [ ] `mul_f32_rrr`
+-   [ ] `mul_i32_ri`
+-   [ ] `mul_i32_rr`
+-   [ ] `mul_i32_rir`
+-   [ ] `mul_i32_rrr`
+-   [ ] `mul_u32_ri`
+-   [ ] `mul_u32_rr`
+-   [ ] `mul_u32_rir`
+-   [ ] `mul_u32_rrr`
+-   [ ] `mul_f64_ri`
+-   [ ] `mul_f64_rr`
+-   [ ] `mul_f64_rir`
+-   [ ] `mul_f64_rrr`
+-   [x] `mul_i64_ri`
+-   [x] `mul_i64_rr`
+-   [x] `mul_i64_rir`
+-   [x] `mul_i64_rrr`
+-   [x] `mul_u64_ri`
+-   [x] `mul_u64_rr`
+-   [x] `mul_u64_rir`
+-   [x] `mul_u64_rrr`
+
+### `mv`
+
+-   [x] `mv_b_rr`
+-   [x] `mv_q_rr`
+-   [x] `mv_h_rr`
+-   [x] `mv_w_rr`
+
+### `not`
+
+-   [ ] `not_b_r`
+-   [ ] `not_b_rr`
+-   [ ] `not_q_r`
+-   [ ] `not_q_rr`
+-   [ ] `not_h_r`
+-   [ ] `not_h_rr`
+-   [ ] `not_w_r`
+-   [ ] `not_w_rr`
+
+### `or`
+
+-   [x] `or_b_rr`
+-   [x] `or_b_rrr`
+-   [x] `or_q_rr`
+-   [x] `or_q_rrr`
+-   [x] `or_h_rr`
+-   [x] `or_h_rrr`
+-   [x] `or_w_rr`
+-   [x] `or_w_rrr`
+
+### `pop`
+
+-   [x] `pop_w_r`
+
+### `push`
+
+-   [x] `push_w_r`
+
+### `put`
+
+-   [x] `put_b_i`
+-   [x] `put_w_r`
+
+### `sl`
+
+-   [ ] `sl_b_ri`
+-   [ ] `sl_b_rr`
+-   [ ] `sl_b_rir`
+-   [ ] `sl_b_rrr`
+-   [ ] `sl_q_ri`
+-   [ ] `sl_q_rr`
+-   [ ] `sl_q_rir`
+-   [ ] `sl_q_rrr`
+-   [ ] `sl_h_ri`
+-   [ ] `sl_h_rr`
+-   [ ] `sl_h_rir`
+-   [ ] `sl_h_rrr`
+-   [ ] `sl_w_ri`
+-   [ ] `sl_w_rr`
+-   [ ] `sl_w_rir`
+-   [ ] `sl_w_rrr`
+
+### `sr`
+
+-   [ ] `sr_b_ri`
+-   [ ] `sr_b_rr`
+-   [ ] `sr_b_rir`
+-   [ ] `sr_b_rrr`
+-   [ ] `sr_q_ri`
+-   [ ] `sr_q_rr`
+-   [ ] `sr_q_rir`
+-   [ ] `sr_q_rrr`
+-   [ ] `sr_h_ri`
+-   [ ] `sr_h_rr`
+-   [ ] `sr_h_rir`
+-   [ ] `sr_h_rrr`
+-   [ ] `sr_w_ri`
+-   [ ] `sr_w_rr`
+-   [ ] `sr_w_rir`
+-   [ ] `sr_w_rrr`
+
+### `ser`
+
+-   [ ] `ser_b_ri`
+-   [ ] `ser_b_rr`
+-   [ ] `ser_b_rir`
+-   [ ] `ser_b_rrr`
+-   [ ] `ser_q_ri`
+-   [ ] `ser_q_rr`
+-   [ ] `ser_q_rir`
+-   [ ] `ser_q_rrr`
+-   [ ] `ser_h_ri`
+-   [ ] `ser_h_rr`
+-   [ ] `ser_h_rir`
+-   [ ] `ser_h_rrr`
+-   [ ] `ser_w_ri`
+-   [ ] `ser_w_rr`
+-   [ ] `ser_w_rir`
+-   [ ] `ser_w_rrr`
+
+### `xor`
+
+-   [x] `xor_b_r`
+-   [x] `xor_b_rr`
+-   [x] `xor_b_rrr`
+-   [x] `xor_q_r`
+-   [x] `xor_q_rr`
+-   [x] `xor_q_rrr`
+-   [x] `xor_h_r`
+-   [x] `xor_h_rr`
+-   [x] `xor_h_rrr`
+-   [x] `xor_w_r`
+-   [x] `xor_w_rr`
+-   [x] `xor_w_rrr`
