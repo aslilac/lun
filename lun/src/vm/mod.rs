@@ -2,21 +2,25 @@ pub mod cpu;
 pub mod err;
 pub mod prelude;
 
-use crate::{base::WriteBuffer, isa::prelude::Instruction};
+use crate::isa::prelude::Instruction;
 pub use cpu::registers::{
     PartialRegister, RegisterSet, VmByteRegister, VmHwordRegister, VmQwordRegister, VmRegister,
     VmRegister::*,
 };
 pub use err::{VmError, VmResult};
-use std::fmt::Debug;
+use std::{
+    fmt::Debug,
+    io,
+    io::{BufWriter, Write},
+};
 
 // TODO: Remove the pub(crate) bits from this, replace with pub methods
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Vm {
     rs: RegisterSet,
 
     pub(crate) mem: Vec<u64>,
-    pub(crate) disp: WriteBuffer,
+    pub(crate) disp: BufWriter<io::Stdout>,
 
     pub(crate) eq: bool,
     pub(crate) ng: bool,
@@ -26,13 +30,33 @@ pub struct Vm {
     pub(crate) result: VmResult,
 }
 
+impl Default for Vm {
+    fn default() -> Self {
+        Self {
+            rs: Default::default(),
+
+            mem: Vec::with_capacity(Self::DEFAULT_MEMORY_CAPACITY),
+            disp: BufWriter::with_capacity(Self::DISPLAY_BUFFER_CAPACITY, io::stdout()),
+
+            eq: Default::default(),
+            ng: Default::default(),
+            ov: Default::default(),
+            halt: Default::default(),
+            result: Default::default(),
+        }
+    }
+}
+
 impl Drop for Vm {
     fn drop(&mut self) {
-        self.disp.flush();
+        let _ = self.disp.flush();
     }
 }
 
 impl Vm {
+    const DISPLAY_BUFFER_CAPACITY: usize = 1024;
+    const DEFAULT_MEMORY_CAPACITY: usize = 1024;
+
     pub fn get_register_value(&self, reg: VmRegister) -> u64 {
         self.rs.get_register_value(reg)
     }
