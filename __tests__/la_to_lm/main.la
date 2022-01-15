@@ -1,6 +1,9 @@
-xor :a                          ; Set :a to zero
+xor x                                   ; Set x to zero
 
--> [loop_and_chill]
-add.u64 :a 1                    ; Increment :a by 1
-o.at    :a 100                  ; Store the value of a in memory at
-l [loop_and_chill]
+-> loop_and_chill
+add.u64 x 1                             ; Increment x by 1
+o.at    x 100                           ; Store the value of a in memory at
+l -> loop_and_chill
+
+add.u8 xb0 1 xb1                        ; Add 1 to the least signifant byte of x, and
+                                        ; store it in the next byte up

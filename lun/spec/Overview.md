@@ -1,5 +1,7 @@
 # Overview
 
+### This documentation does not reflect the actual current implementation state
+
 # Words
 
 Wherever possible we try to stick to keeping everything as a 64 bit value. Throughout
@@ -14,7 +16,7 @@ See Is.md
 
 Each core has a bank of 8 general purpose registers, as well as a couple of internal
 registers. The general purpose registers are called a, b, c, d, e, f, x, and y.
-The internal registers are call l, u, and n.
+The internal registers are called l, u, and n.
 
 -   l: exec pointer
 -   u: flags and stuff
