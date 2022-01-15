@@ -191,10 +191,10 @@
 -   [x] mul_u64_rr
 -   [x] mul_u64_rir
 -   [x] mul_u64_rrr
--   [ ] mv_b_rr
--   [ ] mv_q_rr
--   [ ] mv_h_rr
--   [ ] mv_w_rr
+-   [x] mv_b_rr
+-   [x] mv_q_rr
+-   [x] mv_h_rr
+-   [x] mv_w_rr
 -   [x] or_b_rr
 -   [x] or_b_rrr
 -   [x] or_q_rr
