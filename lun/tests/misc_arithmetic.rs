@@ -5,16 +5,16 @@ fn random_arithmatic_test() {
     let mut vm = Vm::default();
 
     // Initialize to 0, use as a counter
-    vm.exec(xor_r(a));
+    vm.exec(xor_w_r(a));
     assert_eq!(0, vm.get_register_value(a));
 
     // Initialize to 0, use as an accumulator
-    vm.exec(xor_r(b));
+    vm.exec(xor_w_r(b));
 
     // Initialize to 0, used to find fibbonacci numbers
-    vm.exec(xor_r(c));
-    vm.exec(xor_r(d));
-    vm.exec(xor_r(e));
+    vm.exec(xor_w_r(c));
+    vm.exec(xor_w_r(d));
+    vm.exec(xor_w_r(e));
 
     vm.exec(add_u64_ri(c, 1)); // 0 + 1 = 1
     vm.exec(add_u64_ri(d, 1)); // 0 + 1 = 1
@@ -48,7 +48,7 @@ fn random_arithmatic_test() {
     assert_eq!(144, vm.get_register_value(e));
 
     // Clear to 0 (short form)
-    vm.exec(xor_r(a));
+    vm.exec(xor_w_r(a));
     assert_eq!(0, vm.get_register_value(a));
 
     // Make it not 0 again
@@ -56,6 +56,6 @@ fn random_arithmatic_test() {
     assert_eq!(10, vm.get_register_value(a));
 
     // Clear to 0 (long form)
-    vm.exec(xor_rrr(a, a, a));
+    vm.exec(xor_w_rrr(a, a, a));
     assert_eq!(0, vm.get_register_value(a));
 }

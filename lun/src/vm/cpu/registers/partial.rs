@@ -1,4 +1,5 @@
 use super::VmRegister;
+use std::{fmt, fmt::Debug};
 
 pub trait PartialRegister {
     // TODO: Is there some way to do this using intrinsics?
@@ -9,7 +10,7 @@ pub trait PartialRegister {
     fn get_reg_and_index(self) -> (VmRegister, u64);
 }
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct VmByteRegister(VmRegister, u64);
 
 impl VmByteRegister {
@@ -32,7 +33,13 @@ impl PartialRegister for VmByteRegister {
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+impl Debug for VmByteRegister {
+    fn fmt(&self, disp: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(disp, "{:?}b{}", self.0, self.1)
+    }
+}
+
+#[derive(Copy, Clone, PartialEq)]
 pub struct VmQwordRegister(VmRegister, u64);
 
 impl VmQwordRegister {
@@ -57,7 +64,13 @@ impl PartialRegister for VmQwordRegister {
     }
 }
 
-#[derive(Copy, Clone, Debug, PartialEq)]
+impl Debug for VmQwordRegister {
+    fn fmt(&self, disp: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(disp, "{:?}q{}", self.0, self.1)
+    }
+}
+
+#[derive(Copy, Clone, PartialEq)]
 pub struct VmHwordRegister(VmRegister, u64);
 
 impl VmHwordRegister {
@@ -79,6 +92,12 @@ impl PartialRegister for VmHwordRegister {
 
     fn get_reg_and_index(self) -> (VmRegister, u64) {
         (self.0, self.1)
+    }
+}
+
+impl Debug for VmHwordRegister {
+    fn fmt(&self, disp: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(disp, "{:?}h{}", self.0, self.1)
     }
 }
 

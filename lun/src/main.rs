@@ -12,9 +12,14 @@ fn main() -> Result<(), std::io::Error> {
     let mut vm = Vm::default();
 
     vm.set_register_value(a, 0x6173206f6c6c6548); // Hello sa
-    vm.exec(put_r(a));
+    vm.exec(put_w_r(a));
     vm.set_register_value(a, 0x0a21726f6c69); // ilor!\n
-    vm.exec(put_r(a));
+    vm.exec(put_w_r(a));
+
+    println!("{:?}", VmByteRegister::new(x, 0));
+    println!("{:?}", VmQwordRegister::new(x, 0));
+    println!("{:?}", VmHwordRegister::new(x, 0));
+    println!("{:?}", x);
 
     // vm.inspect();
 
