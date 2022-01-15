@@ -1,4 +1,5 @@
 mod add;
+mod div;
 mod mul;
 
 use super::iprelude::*;
@@ -46,6 +47,14 @@ pub enum ArithmeticInstruction {
     add_u64_rr(VmRegister, VmRegister),
     add_u64_rir(VmRegister, u64, VmRegister),
     add_u64_rrr(VmRegister, VmRegister, VmRegister),
+
+    div_q_i64_rr(VmRegister, VmRegister),
+    div_q_i64_rrr(VmRegister, VmRegister, VmRegister),
+    div_m_i64_rr(VmRegister, VmRegister),
+    div_m_i64_rrr(VmRegister, VmRegister, VmRegister),
+    div_i64_rr(VmRegister, VmRegister),
+    div_i64_rrr(VmRegister, VmRegister, VmRegister),
+    div_i64_rrrr(VmRegister, VmRegister, VmRegister, VmRegister),
 
     mul_i64_ri(VmRegister, i64),
     mul_i64_rr(VmRegister, VmRegister),
@@ -102,6 +111,14 @@ impl Instruction for ArithmeticInstruction {
             add_u64_rr(r1, r2) => add::u64_rrr(vm, r1, r2, r1),
             add_u64_rir(r1, i, rr) => add::u64_rir(vm, r1, i, rr),
             add_u64_rrr(r1, r2, rr) => add::u64_rrr(vm, r1, r2, rr),
+
+            div_q_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, Some(r1), None),
+            div_q_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, Some(rr), None),
+            div_m_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, None, Some(r1)),
+            div_m_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, None, Some(rr)),
+            div_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, Some(r1), Some(r)),
+            div_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, Some(rr), Some(r)),
+            div_i64_rrrr(r1, r2, rr, rm) => div::i64_rrrr(vm, r1, r2, Some(rr), Some(rm)),
 
             mul_i64_ri(r1, i) => mul::i64_rir(vm, r1, i, r1),
             mul_i64_rr(r1, r2) => mul::i64_rrr(vm, r1, r2, r1),

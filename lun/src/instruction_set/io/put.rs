@@ -15,6 +15,7 @@ pub fn w_r(vm: &mut Vm, r1: VmRegister) {
         if byte == 0 {
             break;
         }
+
         vm.dsp_buf.push(byte);
     }
 }

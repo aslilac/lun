@@ -1,15 +1,26 @@
-### Todo
+In general the structure of the impl names is `{opname}_{datatype}_{operands}`
 
--   Memory read (`mi`?)
-    -   Oooo maybe `mi` should be multiple-in
--   Memory write (`mo`?)
-    -   Some with `mo` but multiple out
--   Shift but it comes back on the other side?
-    -   I think typically this is rotate vs shift
--   Flesh out `exp`
--   Conditional branching
--   `halt`?
--   stack peeking
+-   datatype is usually one of...
+
+    -   i8
+    -   u8
+    -   i16
+    -   u16
+    -   i32
+    -   u32
+    -   i64
+    -   u64
+    -   b (byte, 8 bits)
+    -   q (quarter-word, 16 bits)
+    -   h (half-word, 32 bits)
+    -   w (word, 64 bits)
+
+-   operand is usually one of...
+
+    -   i (immediate value, encoded in the instruction)
+    -   r (register)
+
+## Instructions
 
 ### `add`
 
@@ -82,6 +93,10 @@
 
 ### `div`
 
+divq.i8 r1 i ; quotient only, stored in r1
+divm.i8 r1 i ; modulus only, stored in r1
+div.i8 r1 i ; quotient + modulus, q stored in r1, m stored in r
+
 -   [ ] `div_i8_ri`
 -   [ ] `div_i8_rr`
 -   [ ] `div_i8_rir`
@@ -142,6 +157,10 @@
 ### `exp`
 
 -   [ ] `exp_u64_rrr`
+
+### `halt`
+
+-   [ ] `halt_x_x`
 
 ### `min`
 
@@ -269,7 +288,12 @@
 ### `put`
 
 -   [x] `put_b_i`
+-   [x] `put_b_r`
 -   [x] `put_w_r`
+
+### `slp`
+
+-   [ ] `slp`
 
 ### `sl`
 
