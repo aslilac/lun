@@ -24,7 +24,6 @@ impl DisplayBuffer {
         self.mbuf().clear();
     }
 
-
     pub fn flush(&mut self) {
         let _ = io::stdout().lock().write(self.buf().as_slice());
         self.clear();
