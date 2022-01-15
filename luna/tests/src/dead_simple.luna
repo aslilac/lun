@@ -1,0 +1,15 @@
+    add.u8      xb0   0x48
+    add.u8      xb1   0x65
+    add.u16     xq1   0x6c6c
+    add.u16     xq2   0x206f
+    add.u16     xq3   0x6173
+    put         x
+    xor         x
+    add.u8      xb0   0x69
+    add.u16     xq0   0x6c00
+    add.u16     xq1   0x726f
+    add.u32     yh0   0x0a21
+    mv          xh1   yh0
+    put         x
+    xor         x
+    halt

@@ -2,7 +2,7 @@
 name = "lunc"
 version = "0.0.1"
 authors = ["McKayla Washburn <mckayla@hey.com>"]
-edition = "2018"
+edition = "2021"
 description = "The Lun compiler"
 
 [dependencies]

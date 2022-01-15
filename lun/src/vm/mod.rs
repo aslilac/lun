@@ -1,14 +1,12 @@
 pub mod cpu;
-pub mod display_buffer;
 pub mod err;
 pub mod prelude;
 
-use crate::instruction_set::prelude::Instruction;
+use crate::{base::WriteBuffer, isa::prelude::Instruction};
 pub use cpu::registers::{
     PartialRegister, RegisterSet, VmByteRegister, VmHwordRegister, VmQwordRegister, VmRegister,
     VmRegister::*,
 };
-use display_buffer::DisplayBuffer;
 pub use err::{VmError, VmResult};
 use std::fmt::Debug;
 
@@ -18,7 +16,7 @@ pub struct Vm {
     rs: RegisterSet,
 
     pub(crate) mem: Vec<u64>,
-    pub(crate) dsp_buf: DisplayBuffer,
+    pub(crate) disp: WriteBuffer,
 
     pub(crate) eq: bool,
     pub(crate) ng: bool,
@@ -30,7 +28,7 @@ pub struct Vm {
 
 impl Drop for Vm {
     fn drop(&mut self) {
-        self.dsp_buf.flush();
+        self.disp.flush();
     }
 }
 
@@ -87,9 +85,9 @@ impl Vm {
         self.rs = RegisterSet::default();
     }
 
-    pub fn exec(&mut self, instruction: impl Instruction + Debug) {
-        println!("{:?}", instruction);
-        instruction.exec(self);
+    pub fn exec(&mut self, inst: impl Instruction + Debug) {
+        println!("{:?}", inst);
+        inst.exec(self);
     }
 
     pub fn inspect(&self) {

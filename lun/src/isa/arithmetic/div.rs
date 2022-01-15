@@ -9,13 +9,13 @@ pub fn i64_rrrr(
 ) {
     let r1v = vm.get_register_value(r1);
     let r2v = vm.get_register_value(r2);
-    let (q, m) = (r1v / r2v, r1v % r2v);
+    let (quotient, m) = (r1v / r2v, r1v % r2v);
 
     if let Some(rr) = rro {
-        vm.set_register_value(rr, q);
+        vm.set_register_value(rr, quotient);
     }
 
     if let Some(rm) = rmo {
-        vm.set_register_value(rm, q);
+        vm.set_register_value(rm, m);
     }
 }

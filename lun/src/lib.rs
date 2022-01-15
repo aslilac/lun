@@ -2,6 +2,7 @@
 // Remove ASAP
 #![allow(dead_code)]
 
-pub mod instruction_set;
+pub mod base;
+pub mod isa;
 pub mod prelude;
 pub mod vm;

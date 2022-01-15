@@ -1,22 +1,22 @@
 use std::{io, io::Write};
 
 #[derive(Debug)]
-pub struct DisplayBuffer(pub(super) Vec<u8>);
+pub struct WriteBuffer(pub(super) Vec<u8>);
 
-impl Default for DisplayBuffer {
+impl Default for WriteBuffer {
     fn default() -> Self {
         Self(Vec::with_capacity(1024))
     }
 }
 
-impl DisplayBuffer {
+impl WriteBuffer {
     pub fn buf(&self) -> &Vec<u8> {
-        let DisplayBuffer(buf) = self;
+        let WriteBuffer(buf) = self;
         buf
     }
 
     pub fn mbuf(&mut self) -> &mut Vec<u8> {
-        let DisplayBuffer(buf) = self;
+        let WriteBuffer(buf) = self;
         buf
     }
 
