@@ -47,7 +47,6 @@ impl Vm {
         self.rs.set_register_value(reg, val);
     }
 
-
     pub fn set_partial_register_value(&mut self, reg: impl PartialRegister, val: u64) {
         self.rs.set_partial_register_value(reg, val)
     }
