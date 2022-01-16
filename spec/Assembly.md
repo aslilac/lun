@@ -3,7 +3,8 @@
 Many instructions have variants (denoted by a suffix of a `.` and the variant name). As
 an example, the typical signed integer addition instruction is written as `add.i64`. The
 instruction is `add` and the variant is `i64`, meaning it is intended to operate on signed
-64 bit values.
+64 bit values. Some variants can be deduced by the register types used as operands, but
+some, like for signed and unsigned arithmetic, are required.
 
 # Syntax
 
@@ -32,7 +33,7 @@ Lunar Machine-code (LM)).
 
 # Opcode
 
-LM is designed to have a somewhat simple instruction set, and most importantly is designed
+Lun is designed to have a somewhat simple instruction set, and most importantly is designed
 to be easily (relatively) understood by a human, since it's mostly just for fun. As such,
 the opcode refers to the most significant two bytes of the first word of an instruction.
 Variants should be determined by the next four most significant bits (or in some cases,
@@ -74,49 +75,31 @@ opcode, which is always contained in the first word.
 `10` - 4 words
 `11` - 5 words
 
-# Arithmatic
+# Arithmetic
 
-`add.{i64,u64} :_ #`
-
-    |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 100s0000 0000r1.. nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn
-
-    : s	    0 => u64, 1 => i64
-    : r1..	The first operand register, and the result storage register
-    : n	    The inlined immediate value (a 32 bit value that will be signed extended to 64 bits)
-
-Adds together the numbers from the first register and the inlined immediate value and
-stores them in the first register.
-
-`add.{i64,u64} :_ # :_`
+`add.{i$size,u$size} $r1 #i`
+`add.{i$size,u$size} $r1 #i $rr`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 101s0000 r1..rr.. nnnnnnnn nnnnnnnn nnnnnnnn nnnnnnnn
+     00000000 0000000s r1...... rr...... iiiiiiii iiiiiiii iiiiiiii iissssss
 
-    : s	    0 => u64, 1 => i64
+    : s	    0 => u$size, 1 => i$size
     : r1..	The first operand register
+    : i	    The inlined immediate value
+            -   When $size is 64, this is a 26-bit value, with a 6-bit rotation factor
+            -   When $size is 32 or less, it is a fully represented inlined value
+            -   When $size is less than 32, the value should be stored in the least
+                significant bits, and unneeded precision should be zeroed.
+                For example, an i8 of -1 should be `00000000 00000000 00000000 11111111`.
     : rr..  The result storage register
-    : n	    The inlined immediate value (a 32 bit value that will be signed extended to 64 bits)
 
-Adds together the numbers from the first register and the inlined immediate value and
-stores them in the first register.
-
-`add.{i64,u64} :_ :_`
-
-    |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 110s0000 r1..r2.. 00000000 00000000 00000000 00000000
-
-    : s	    0 => u64, 1 => i64
-    : r1..	The first operand register, and the result storage register
-    : r2..	The second operand register
-
-Adds together the numbers from the first and second given registers and stores them in the
-first register.
+Adds together the values from r1 and the inlined immediate value and stores the
+result in rr. rr can be comma
 
 `add.{i64,u64} :_ :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000000 111s0000 r1..r2.. r3..0000 00000000 00000000 00000000
+     00000000 0000001s r1...... r2...... rr......{00000000 00000000 00000000}
 
     : s	    0 => u64, 1 => i64
     : r1..  The first operand register
@@ -126,10 +109,10 @@ first register.
 Adds together the numbers from the first and second given registers and stores them in the
 third register.
 
-`xor :_`
+`clr|xor :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000001 10010000 r...0000 00000000 00000000 00000000 00000000
+     00000000 00000100 r.......{00000000 00000000 00000000 00000000 00000000}
 
     : r...  The register to clear
 
@@ -138,7 +121,7 @@ Shorthand for `xor :_ :_ :_` (useful for zeroing a register)
 `xor :_ :_ :_`
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 00000001 11100000 r1..r2.. r3..0000 00000000 00000000 00000000
+     00000000 00000101 r1...... r2...... rr......{00000000 00000000 00000000}
 
     : r1..  The first operand register
     : r2..  The second operand register

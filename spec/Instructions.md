@@ -20,11 +20,6 @@ In general the structure of the impl names is `{opname}_{datatype}_{operands}`
     -   i (immediate value, encoded in the instruction)
     -   r (register)
 
-Instructions should be as wide reaching as possible. If something can already be done with
-a single instruction, don't make a more specific one. Sugar and shorthands can be handled
-at assembly time, so there's no need to make the decoding and runtime logic more complex
-than it needs to be by duplicating functionality.
-
 ## Instructions
 
 ### `add`
@@ -74,10 +69,6 @@ than it needs to be by duplicating functionality.
 
 ### `div`
 
-divq.i8 r1 i ; quotient only, stored in r1
-divm.i8 r1 i ; modulus only, stored in r1
-div.i8 r1 i ; quotient + modulus, q stored in r1, m stored in r
-
 -   [ ] `div_i8_rirr`
 -   [ ] `div_i8_rrrr`
 -   [ ] `div_u8_rirr`
@@ -94,14 +85,33 @@ div.i8 r1 i ; quotient + modulus, q stored in r1, m stored in r
 -   [ ] `div_u32_rrrr`
 -   [ ] `div_f64_rir`
 -   [ ] `div_f64_rrr`
--   [ ] `div_i64_rirr`
--   [ ] `div_i64_rrrr`
+-   [x] `div_i64_rirr`
+-   [x] `div_i64_rrrr`
 -   [ ] `div_u64_rirr`
 -   [ ] `div_u64_rrrr`
 
 ### `exp`
 
--   [ ] `exp_u64_rrr`
+-   [ ] `exp_i8_rir`
+-   [ ] `exp_i8_rrr`
+-   [ ] `exp_u8_rir`
+-   [ ] `exp_u8_rrr`
+-   [ ] `exp_i16_rir`
+-   [ ] `exp_i16_rrr`
+-   [ ] `exp_u16_rir`
+-   [ ] `exp_u16_rrr`
+-   [ ] `exp_f32_rir`
+-   [ ] `exp_f32_rrr`
+-   [ ] `exp_i32_rir`
+-   [ ] `exp_i32_rrr`
+-   [ ] `exp_u32_rir`
+-   [ ] `exp_u32_rrr`
+-   [ ] `exp_f64_rir`
+-   [ ] `exp_f64_rrr`
+-   [x] `exp_i64_rir`
+-   [x] `exp_i64_rrr`
+-   [x] `exp_u64_rir`
+-   [x] `exp_u64_rrr`
 
 ### `halt`
 

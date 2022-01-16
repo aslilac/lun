@@ -24,3 +24,10 @@
 ### Sys
 
 -   What should the Lun binary/executable format look like?
+
+### Instructions
+
+-   Instructions should be as wide reaching as possible. If something can already be done with
+    a single instruction, don't make a more specific one. Sugar and shorthands can be handled
+    at assembly time, so there's no need to make the decoding and runtime logic more complex
+    than it needs to be by duplicating functionality.
