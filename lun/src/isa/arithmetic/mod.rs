@@ -35,29 +35,35 @@ pub enum ArithmeticInstruction {
     add_u32_rr(VmHwordRegister, VmHwordRegister),
     add_u32_rir(VmHwordRegister, u32, VmHwordRegister),
     add_u32_rrr(VmHwordRegister, VmHwordRegister, VmHwordRegister),
-    add_f64_ri(VmRegister, f64),
-    add_f64_rr(VmRegister, VmRegister),
-    add_f64_rir(VmRegister, f64, VmRegister),
-    add_f64_rrr(VmRegister, VmRegister, VmRegister),
-    add_i64_ri(VmRegister, i64),
-    add_i64_rr(VmRegister, VmRegister),
-    add_i64_rir(VmRegister, i64, VmRegister),
-    add_i64_rrr(VmRegister, VmRegister, VmRegister),
-    add_u64_ri(VmRegister, u64),
-    add_u64_rr(VmRegister, VmRegister),
-    add_u64_rir(VmRegister, u64, VmRegister),
-    add_u64_rrr(VmRegister, VmRegister, VmRegister),
+    add_f64_ri(VmNativeRegister, f64),
+    add_f64_rr(VmNativeRegister, VmNativeRegister),
+    add_f64_rir(VmNativeRegister, f64, VmNativeRegister),
+    add_f64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
+    add_i64_ri(VmNativeRegister, i64),
+    add_i64_rr(VmNativeRegister, VmNativeRegister),
+    add_i64_rir(VmNativeRegister, i64, VmNativeRegister),
+    add_i64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
+    add_u64_ri(VmNativeRegister, u64),
+    add_u64_rr(VmNativeRegister, VmNativeRegister),
+    add_u64_rir(VmNativeRegister, u64, VmNativeRegister),
+    add_u64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
 
-    div_i64_rrrr(VmRegister, VmRegister, OpVmRegister, VmRegister),
+    div_i64_rirr(VmNativeRegister, i64, VmNativeRegister, VmNativeRegister),
+    div_i64_rrrr(
+        VmNativeRegister,
+        VmNativeRegister,
+        VmNativeRegister,
+        VmNativeRegister,
+    ),
 
-    mul_i64_ri(VmRegister, i64),
-    mul_i64_rr(VmRegister, VmRegister),
-    mul_i64_rir(VmRegister, i64, VmRegister),
-    mul_i64_rrr(VmRegister, VmRegister, VmRegister),
-    mul_u64_ri(VmRegister, u64),
-    mul_u64_rr(VmRegister, VmRegister),
-    mul_u64_rir(VmRegister, u64, VmRegister),
-    mul_u64_rrr(VmRegister, VmRegister, VmRegister),
+    mul_i64_ri(VmNativeRegister, i64),
+    mul_i64_rr(VmNativeRegister, VmNativeRegister),
+    mul_i64_rir(VmNativeRegister, i64, VmNativeRegister),
+    mul_i64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
+    mul_u64_ri(VmNativeRegister, u64),
+    mul_u64_rr(VmNativeRegister, VmNativeRegister),
+    mul_u64_rir(VmNativeRegister, u64, VmNativeRegister),
+    mul_u64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
 }
 
 impl Instruction for ArithmeticInstruction {
@@ -106,13 +112,8 @@ impl Instruction for ArithmeticInstruction {
             add_u64_rir(r1, i, rr) => add::u64_rir(vm, r1, i, rr),
             add_u64_rrr(r1, r2, rr) => add::u64_rrr(vm, r1, r2, rr),
 
-            div_q_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, Some(r1), None),
-            div_q_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, Some(rr), None),
-            div_m_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, None, Some(r1)),
-            div_m_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, None, Some(rr)),
-            div_i64_rr(r1, r2) => div::i64_rrrr(vm, r1, r2, Some(r1), Some(r)),
-            div_i64_rrr(r1, r2, rr) => div::i64_rrrr(vm, r1, r2, Some(rr), Some(r)),
-            div_i64_rrrr(r1, r2, rr, rm) => div::i64_rrrr(vm, r1, r2, Some(rr), Some(rm)),
+            div_i64_rirr(r1, i, rr, rm) => div::i64_rirr(vm, r1, i, rr, rm),
+            div_i64_rrrr(r1, r2, rr, rm) => div::i64_rrrr(vm, r1, r2, rr, rm),
 
             mul_i64_ri(r1, i) => mul::i64_rir(vm, r1, i, r1),
             mul_i64_rr(r1, r2) => mul::i64_rrr(vm, r1, r2, r1),
@@ -137,20 +138,20 @@ mod tests {
         let xb0 = VmByteRegister::new(x, 0);
         let xb1 = VmByteRegister::new(x, 1);
 
-        vm.set_partial_register_value(xb1, 1);
+        vm.set_register_value(xb1, 1);
 
         vm.exec(add_i8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 1);
+        assert_eq!(vm.get_register_value(xb0), 1);
         vm.exec(add_i8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 2);
+        assert_eq!(vm.get_register_value(xb0), 2);
 
-        vm.set_partial_register_value(xb0, i8::MAX as u64);
+        vm.set_register_value(xb0, i8::MAX as u64);
 
         vm.exec(add_i8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 0x80);
+        assert_eq!(vm.get_register_value(xb0), 0x80);
         assert_eq!(vm.ov, true);
         vm.exec(add_i8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 0x81);
+        assert_eq!(vm.get_register_value(xb0), 0x81);
         assert_eq!(vm.ov, false);
     }
 
@@ -161,20 +162,20 @@ mod tests {
         let xb0 = VmByteRegister::new(x, 0);
         let xb1 = VmByteRegister::new(x, 1);
 
-        vm.set_partial_register_value(xb1, 1);
+        vm.set_register_value(xb1, 1);
 
         vm.exec(add_u8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 1);
+        assert_eq!(vm.get_register_value(xb0), 1);
         vm.exec(add_u8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 2);
+        assert_eq!(vm.get_register_value(xb0), 2);
 
-        vm.set_partial_register_value(xb0, u8::MAX as u64);
+        vm.set_register_value(xb0, u8::MAX as u64);
 
         vm.exec(add_u8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 0x00);
+        assert_eq!(vm.get_register_value(xb0), 0x00);
         assert_eq!(vm.ov, true);
         vm.exec(add_u8_rr(xb0, xb1));
-        assert_eq!(vm.get_partial_register_value(xb0), 0x01);
+        assert_eq!(vm.get_register_value(xb0), 0x01);
         assert_eq!(vm.ov, false);
     }
 
@@ -184,7 +185,7 @@ mod tests {
         let xh0 = VmHwordRegister::new(x, 0);
 
         vm.exec(add_f32_ri(xh0, 1.0));
-        assert_eq!(vm.get_partial_register_value(xh0), 0x3f800000);
+        assert_eq!(vm.get_register_value(xh0), 0x3f800000);
     }
 
     #[test]

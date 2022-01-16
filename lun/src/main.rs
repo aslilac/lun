@@ -1,4 +1,5 @@
 #![feature(mixed_integer_ops)]
+#![feature(trait_alias)]
 // Remove ASAP
 #![allow(dead_code)]
 

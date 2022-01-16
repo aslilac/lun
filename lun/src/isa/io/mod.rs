@@ -12,12 +12,12 @@ pub enum IoInstruction {
     mv_b_rr(VmByteRegister, VmByteRegister),
     mv_q_rr(VmQwordRegister, VmQwordRegister),
     mv_h_rr(VmHwordRegister, VmHwordRegister),
-    mv_w_rr(VmRegister, VmRegister),
-    pop_w_r(VmRegister),
-    push_w_r(VmRegister),
+    mv_w_rr(VmNativeRegister, VmNativeRegister),
+    pop_w_r(VmNativeRegister),
+    push_w_r(VmNativeRegister),
     put_b_i(u8),
     put_b_r(VmByteRegister),
-    put_w_r(VmRegister),
+    put_w_r(VmNativeRegister),
 }
 
 impl Instruction for IoInstruction {
@@ -28,7 +28,7 @@ impl Instruction for IoInstruction {
             mv_b_rr(r1, rr) => mv::t_rr(vm, r1, rr),
             mv_q_rr(r1, rr) => mv::t_rr(vm, r1, rr),
             mv_h_rr(r1, rr) => mv::t_rr(vm, r1, rr),
-            mv_w_rr(r1, r2) => mv::w_rr(vm, r1, r2),
+            mv_w_rr(r1, rr) => mv::t_rr(vm, r1, rr),
             pop_w_r(r1) => pop::w_r(vm, r1),
             push_w_r(r1) => push::w_r(vm, r1),
             put_b_i(i) => put::b_i(vm, i),

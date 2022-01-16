@@ -7,6 +7,6 @@ fn byte_registers() {
 
     for i in 0..8 {
         let xbi = VmByteRegister::new(x, i);
-        assert_eq!(i, vm.get_partial_register_value(xbi));
+        assert_eq!(i, vm.get_register_value(xbi));
     }
 }

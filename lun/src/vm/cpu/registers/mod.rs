@@ -1,7 +1,8 @@
-mod partial;
+mod addressable;
 
+pub use addressable::*;
 use num_enum::{IntoPrimitive, TryFromPrimitive};
-pub use partial::*;
+use std::fmt::Debug;
 
 #[derive(Debug, Default)]
 pub struct RegisterSet {
@@ -27,7 +28,7 @@ pub struct RegisterSet {
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq, IntoPrimitive, TryFromPrimitive)]
 #[repr(u64)]
-pub enum VmRegister {
+pub enum VmNativeRegister {
     p = 0b0000,
     q = 0b0001,
     r = 0b0010,
@@ -44,11 +45,14 @@ pub enum VmRegister {
     d = 0xd,
     e = 0xe,
     f = 0xf,
+    sink,
 }
 
+pub trait VmRegister = AddressableRegister + Copy + Debug + Sized;
+
 impl RegisterSet {
-    pub fn get_register_value(&self, reg: VmRegister) -> u64 {
-        use VmRegister::*;
+    pub fn get_native_register_value(&self, reg: VmNativeRegister) -> u64 {
+        use VmNativeRegister::*;
 
         match reg {
             p => self.p,
@@ -67,26 +71,27 @@ impl RegisterSet {
             d => self.d,
             e => self.e,
             f => self.f,
+            sink => unreachable!("VmRegister::sink must only be used as a destination"),
         }
     }
 
-    pub fn get_partial_register_value<T: PartialRegister>(&self, partial_reg: T) -> u64 {
-        let (reg, i) = partial_reg.get_reg_and_index();
-        let reg_value = self.get_register_value(reg);
+    pub fn get_register_value<T: VmRegister>(&self, reg: T) -> u64 {
+        let (native_reg, i) = reg.get_reg_and_index();
+        let native_reg_value = self.get_native_register_value(native_reg);
 
         if cfg!(debug_assertions) {
             assert!(i < T::MAX_REGISTER_INDEX);
         }
 
-        (reg_value >> (i * T::WIDTH)) & T::MASK
-        // .try_into()
-        // .expect("Value must always fit safely")
-
-        // reg.read(self)
+        // match reg {
+        //     VmNativeRegister => native_reg_value,
+        //     _ => (native_reg_value >> (i * T::WIDTH)) & T::MASK,
+        // }
+        (native_reg_value >> (i * T::WIDTH)) & T::MASK
     }
 
-    pub fn set_register_value(&mut self, reg: VmRegister, val: u64) {
-        use VmRegister::*;
+    pub fn set_native_register_value(&mut self, reg: VmNativeRegister, val: u64) {
+        use VmNativeRegister::*;
 
         match reg {
             p => self.p = val,
@@ -105,29 +110,30 @@ impl RegisterSet {
             d => self.d = val,
             e => self.e = val,
             f => self.f = val,
+            sink => (),
         };
     }
 
-    pub fn set_partial_register_value<T: PartialRegister>(&mut self, partial_reg: T, val: u64) {
-        let (reg, i) = partial_reg.get_reg_and_index();
-        let reg_value = self.get_register_value(reg);
+    pub fn set_register_value<T: VmRegister>(&mut self, reg: T, val: u64) {
+        let (native_reg, i) = reg.get_reg_and_index();
+        let native_reg_value = self.get_native_register_value(native_reg);
 
         if cfg!(debug_assertions) {
             assert!(i < T::MAX_REGISTER_INDEX);
         }
 
-        let cleared_reg_value = reg_value & !(T::MASK << (i * T::WIDTH));
+        let cleared_reg_value = native_reg_value & !(T::MASK << (i * T::WIDTH));
 
         let sanitized_partial_word = (val & T::MASK) << (i * T::WIDTH);
         let set_value = cleared_reg_value | sanitized_partial_word;
-        self.set_register_value(reg, set_value);
+        self.set_native_register_value(native_reg, set_value);
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::vm::VmRegister::*;
+    use crate::vm::VmNativeRegister::*;
 
     #[test]
     fn register_names() {
