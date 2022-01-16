@@ -83,6 +83,7 @@ impl RegisterSet {
             assert!(i < T::MAX_REGISTER_INDEX);
         }
 
+        // TODO: Make this work
         // match reg {
         //     VmNativeRegister => native_reg_value,
         //     _ => (native_reg_value >> (i * T::WIDTH)) & T::MASK,
@@ -115,6 +116,7 @@ impl RegisterSet {
     }
 
     pub fn set_register_value<T: VmRegister>(&mut self, reg: T, val: u64) {
+        // TODO: If reg is a native reg we should be able to just set immediately
         let (native_reg, i) = reg.get_reg_and_index();
         let native_reg_value = self.get_native_register_value(native_reg);
 

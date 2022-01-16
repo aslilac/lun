@@ -61,6 +61,24 @@ mod tests {
     use super::{super::iprelude::*, IoInstruction::*};
 
     #[test]
+    fn mv() {
+        let mut vm = Vm::default();
+
+        let xb0 = VmByteRegister::new(x, 0);
+        let xb1 = VmByteRegister::new(x, 1);
+        vm.set_register_value(x, 0x01);
+
+        vm.exec(mv_b_rr(xb0, xb1));
+        assert_eq!(vm.get_register_value(x), 0x0101);
+
+        let xq0 = VmQwordRegister::new(x, 0);
+        let xq1 = VmQwordRegister::new(x, 1);
+
+        vm.exec(mv_q_rr(xq0, xq1));
+        assert_eq!(vm.get_register_value(x), 0x01010101);
+    }
+
+    #[test]
     fn pop() {
         let mut vm = Vm::default();
 
