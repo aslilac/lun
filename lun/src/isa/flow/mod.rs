@@ -6,7 +6,7 @@ use super::iprelude::*;
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum FlowInstruction {
-    br_i(i64),
+    br_x_i(i64),
     halt_x_x,
 }
 
@@ -15,7 +15,7 @@ impl Instruction for FlowInstruction {
         use FlowInstruction::*;
 
         match self {
-            br_i(i) => br::i(vm, i),
+            br_x_i(i) => br::x_i(vm, i),
             halt_x_x => halt::x_x(vm),
         }
     }

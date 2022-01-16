@@ -48,13 +48,7 @@ pub enum ArithmeticInstruction {
     add_u64_rir(VmRegister, u64, VmRegister),
     add_u64_rrr(VmRegister, VmRegister, VmRegister),
 
-    div_q_i64_rr(VmRegister, VmRegister),
-    div_q_i64_rrr(VmRegister, VmRegister, VmRegister),
-    div_m_i64_rr(VmRegister, VmRegister),
-    div_m_i64_rrr(VmRegister, VmRegister, VmRegister),
-    div_i64_rr(VmRegister, VmRegister),
-    div_i64_rrr(VmRegister, VmRegister, VmRegister),
-    div_i64_rrrr(VmRegister, VmRegister, VmRegister, VmRegister),
+    div_i64_rrrr(VmRegister, VmRegister, OpVmRegister, VmRegister),
 
     mul_i64_ri(VmRegister, i64),
     mul_i64_rr(VmRegister, VmRegister),

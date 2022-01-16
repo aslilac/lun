@@ -101,6 +101,16 @@ impl Debug for VmHwordRegister {
     }
 }
 
+impl PartialRegister for VmRegister {
+    const MAX_REGISTER_INDEX: u64 = 1;
+    const MASK: u64 = u64::MAX;
+    const WIDTH: u64 = 64;
+
+    fn get_reg_and_index(self) -> (VmRegister, u64) {
+        (self, 0)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
