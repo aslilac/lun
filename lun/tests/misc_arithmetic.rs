@@ -16,15 +16,15 @@ fn random_arithmatic_test() {
     vm.exec(xor_w_r(d));
     vm.exec(xor_w_r(e));
 
-    vm.exec(add_u64_ri(c, 1)); // 0 + 1 = 1
-    vm.exec(add_u64_ri(d, 1)); // 0 + 1 = 1
+    vm.exec(add_u64_rir(c, 1, c)); // 0 + 1 = 1
+    vm.exec(add_u64_rir(d, 1, d)); // 0 + 1 = 1
 
     for _ in 0..10 {
         // Increment a
-        vm.exec(add_u64_ri(a, 1));
+        vm.exec(add_u64_rir(a, 1, a));
 
         // b accumulates a
-        vm.exec(add_u64_rr(b, a));
+        vm.exec(add_u64_rrr(b, a, b));
 
         // [c, d, e] = [d, e, c + d]
         vm.exec(add_u64_rrr(c, d, e));
@@ -52,7 +52,7 @@ fn random_arithmatic_test() {
     assert_eq!(0, vm.get_register_value(a));
 
     // Make it not 0 again
-    vm.exec(add_u64_ri(a, 10));
+    vm.exec(add_u64_rir(a, 10, a));
     assert_eq!(10, vm.get_register_value(a));
 
     // Clear to 0 (long form)
