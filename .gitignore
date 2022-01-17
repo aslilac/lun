@@ -2,6 +2,7 @@
 .env*
 .idea/
 .vscode/
+book/
 build/
 dist/
 node_modules/
