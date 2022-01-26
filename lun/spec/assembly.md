@@ -1,6 +1,6 @@
 # General design
 
-Many instructions have variants (denoted by a suffix of a `.` and the variant name). As
+Many instructions have variants (denoted by a `.` and the variant name). As
 an example, the typical signed integer addition instruction is written as `add.i64`. The
 instruction is `add` and the variant is `i64`, meaning it is intended to operate on signed
 64 bit values. Some variants can be deduced by the register types used as operands, but
@@ -76,38 +76,6 @@ opcode, which is always contained in the first word.
 `11` - 5 words
 
 # Arithmetic
-
-`add.{i$size,u$size} $r1 #i`
-`add.{i$size,u$size} $r1 #i $rr`
-
-    |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 0000000s r1...... rr...... iiiiiiii iiiiiiii iiiiiiii iissssss
-
-    : s	    0 => u$size, 1 => i$size
-    : r1..	The first operand register
-    : i	    The inlined immediate value
-            -   When $size is 64, this is a 26-bit value, with a 6-bit rotation factor
-            -   When $size is 32 or less, it is a fully represented inlined value
-            -   When $size is less than 32, the value should be stored in the least
-                significant bits, and unneeded precision should be zeroed.
-                For example, an i8 of -1 should be `00000000 00000000 00000000 11111111`.
-    : rr..  The result storage register
-
-Adds together the values from r1 and the inlined immediate value and stores the
-result in rr. rr can be comma
-
-`add.{i64,u64} :_ :_ :_`
-
-    |--------|--------|--------|--------|--------|--------|--------|--------|
-     00000000 0000001s r1...... r2...... rr......{00000000 00000000 00000000}
-
-    : s	    0 => u64, 1 => i64
-    : r1..  The first operand register
-    : r2..  The second operand register
-    : rr..  The result storage register
-
-Adds together the numbers from the first and second given registers and stores them in the
-third register.
 
 `clr|xor :_`
 

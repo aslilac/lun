@@ -1,13 +1,14 @@
 ### Registers
 
 ```
-x   -> 111000    (6-bit full encoding), 1000 (4-bit word encoding)
-xh0 -> 1010000   (7-bit full encoding)
-xh1 -> 1010001
-xq0 -> 01100000  (8-bit full encoding)
-xq3 -> 01100011
-xb0 -> 001000000 (9-bit full encoding)
-xb7 -> 001000111
+x   -> 1000       (4-bit word encoding)
+x   -> 1110_1000  (8-bit full encoding)
+xh0 -> 1100_1000
+xh1 -> 1101_1000
+xq0 -> 1001_1000
+xq3 -> 1011_1000
+xb0 -> 0000_1000
+xb7 -> 0111_1000
 ```
 
 ```
@@ -33,6 +34,8 @@ Could theoretically be coded as 8 bits... is saving the 1 bit worth it? 🤔
 10000000 .. 10111111 -> pq0 .. fq3 (10iirrrr)
 11000000 .. 11011111 -> ph0 .. fh1 (110irrrr)
 11100000 .. 11101111 -> p   .. f   (1110rrrr)
+11110000 .. 11111110 -> undefined behavior
+11111100 .. 11111111 -> fwi        (full word immediate)
 11111111             -> None       (rarely useful, but worth having)
 ```
 

@@ -1,0 +1,19 @@
+// fn has parens
+fn add(a: i64, b: i64) -> i64 {
+	a + b
+}
+
+struct RunOptions {
+	io: "inherit"
+}
+
+// macro does not
+macro run cmd: String, args: String[], options: RunOptions {
+
+}
+
+fn main() -> Result<(), impl Error> {
+	let x = add(3, 4);
+
+	run "eslint", ["."], io: "inherit"
+}
