@@ -27,6 +27,8 @@
 
 ### Instructions
 
+-   Should instructions have condition predicates built in (like ARM)?
+
 -   Instructions should be as wide reaching as possible. If something can already be done with
     a single instruction, don't make a more specific one. Sugar and shorthands can be handled
     at assembly time, so there's no need to make the decoding and runtime logic more complex

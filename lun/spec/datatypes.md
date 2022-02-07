@@ -74,3 +74,7 @@ A few examples...
 -   An i64,u64 with a value of 1 could be encoded as `00000000 00000000 00000000 01000000`
 -   An i64,u64 with a value of 0xf0 could be encoded as `00000000 00000000 00000011 11000100`
 -   A u64 with a value of 0x8000000000000000 could be encoded as `00000000 00000000 00000000 01111111`
+
+### Caveats
+
+-   f64 values cannot be stored in an hword immediate, and must be addressed as a [fwi](#).

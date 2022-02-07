@@ -175,6 +175,50 @@ In general the structure of the impl names is `{opname}_{datatype}_{operands}`
 -   [x] `put_b_r`
 -   [x] `put_w_r`
 
+### `rotl`
+
+-   [ ] `rotl_b_ri`
+-   [ ] `rotl_b_rr`
+-   [ ] `rotl_q_ri`
+-   [ ] `rotl_q_rr`
+-   [ ] `rotl_h_ri`
+-   [ ] `rotl_h_rr`
+-   [ ] `rotl_w_ri`
+-   [ ] `rotl_w_rr`
+
+### `rotr`
+
+-   [ ] `rotr_b_ri`
+-   [ ] `rotr_b_rr`
+-   [ ] `rotr_q_ri`
+-   [ ] `rotr_q_rr`
+-   [ ] `rotr_h_ri`
+-   [ ] `rotr_h_rr`
+-   [ ] `rotr_w_ri`
+-   [ ] `rotr_w_rr`
+
+### `shiftl`
+
+-   [ ] `shiftl_b_ri`
+-   [ ] `shiftl_b_rr`
+-   [ ] `shiftl_q_ri`
+-   [ ] `shiftl_q_rr`
+-   [ ] `shiftl_h_ri`
+-   [ ] `shiftl_h_rr`
+-   [ ] `shiftl_w_ri`
+-   [ ] `shiftl_w_rr`
+
+### `shiftr`
+
+-   [ ] `shiftr_b_ri`
+-   [ ] `shiftr_b_rr`
+-   [ ] `shiftr_q_ri`
+-   [ ] `shiftr_q_rr`
+-   [ ] `shiftr_h_ri`
+-   [ ] `shiftr_h_rr`
+-   [ ] `shiftr_w_ri`
+-   [ ] `shiftr_w_rr`
+
 ### `slp`
 
 -   [ ] `slp`

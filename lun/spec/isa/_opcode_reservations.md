@@ -1,0 +1,23 @@
+-   `00000000 00000000` &mdash; `halt`
+-   `00000000 00000001` &mdash; `and`
+-   `00000000 00000010` &mdash; `or`
+-   `00000000 00000011` &mdash; `xor`
+-   `00000000 00000100` &mdash; `add` (unsigned)
+-   `00000000 00000101` &mdash; `add` (signed)
+-   `00000000 00000110` &mdash; `sub` (unsigned)
+-   `00000000 00000111` &mdash; `sub` (signed)
+-   `00000000 00001010` &mdash; `mul` (unsigned)
+-   `00000000 00001011` &mdash; `mul` (signed)
+-   `00000000 00001100` &mdash; reserved
+-   `00000000 00001101` &mdash; `div` (float, signed)
+-   `00000000 00001110` &mdash; `div` (integer, unsigned)
+-   `00000000 00001111` &mdash; `div` (integer, signed)
+-   `00000000 00010000` &mdash; `rotl`
+-   `00000000 00010001` &mdash; `rotr`
+-   `00000000 00010010` &mdash; `shl`
+-   `00000000 00010011` &mdash; reserved
+-   `00000000 00010100` &mdash; `shr` (unsigned)
+-   `00000000 00010101` &mdash; `shr` (signed)
+-   `00000000 00010110` &mdash; `cp`
+-   `00000000 00010111` &mdash; `mv`
+-   `00000000 00011000` &mdash; ``

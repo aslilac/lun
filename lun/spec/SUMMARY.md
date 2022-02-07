@@ -8,6 +8,7 @@
     -   [Instructions](instructions.md)
         -   [Prologue](isa/prologue.md)
         -   [add](isa/add.md)
+        -   [div](isa/div.md)
 
 ---
 
