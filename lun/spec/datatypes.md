@@ -10,7 +10,7 @@
 -   u64
 
 Integers are encoded in the usual way. Unsigned integers count up starting from zero,
-and signed intergers are stored in two's compliment fashion.
+and signed integers are stored in two's compliment fashion.
 
 ### Floats
 
@@ -34,24 +34,24 @@ you want! Might be text, might represent a color, or something more!
 #### Word immediate
 
     |--------|--------|--------|--------|--------|--------|--------|--------|
-     iiiiiiii iiiiiiii iiiiiiii iiiiiiii iiiiiiii iiiiiiii iiiiiiii iiiiiiii
+     i....... ........ ........ ........ ........ ........ ........ ........
 
 #### Hword immediate
 
     |--------|--------|--------|--------|
-     iiiiiiii iiiiiiii iiiiiiii iirrrrrr
+     i....... ........ ........ ..r.....
 
     |--------|--------|--------|--------|
-     iiiiiiii iiiiiiii iiiiiiii iiiiiiii
+     i....... ........ ........ ........
 
     |--------|--------|--------|--------|
-     00000000 00000000 iiiiiiii iiiiiiii
+     00000000 00000000 i....... ........
 
     |--------|--------|--------|--------|
-     00000000 00000000 00000000 iiiiiiii
+     00000000 00000000 00000000 i.......
 
 -   `i` is the binary content of the immediate value
--   `s` is an unsigned 6-bit value that indicates how much `i` should be left-rotated to
+-   `r` is an unsigned 6-bit value that indicates how much `i` should be left-rotated to
     form the true value of the encoded immediate (only applicable to hword immediates
     which are encoding a word value.
 
@@ -73,7 +73,7 @@ A few examples...
 -   An i8 with a value of -1 would be encoded as `00000000 00000000 00000000 11111111`
 -   An i64,u64 with a value of 1 could be encoded as `00000000 00000000 00000000 01000000`
 -   An i64,u64 with a value of 0xf0 could be encoded as `00000000 00000000 00000011 11000100`
--   A u64 with a value of 0x8000000000000000 could be encoded as `00000000 00000000 00000000 01111111`
+-   A u64 with a value of 0x8000000000000001 could be encoded as `00000000 00000000 00000000 11111111`
 
 ### Caveats
 

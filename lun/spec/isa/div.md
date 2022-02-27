@@ -9,7 +9,7 @@
      00000000 0000000s r1...... 11111110 rr...... 00000000 00000000 00000000
      i....... ........ ........ ........ ........ ........ ........ ........
 
--   `s` indicates whether the operands are signed (1) or not (0)
+-   `s` indicates whether the operands are signed (`1`) or not (`0`)
 -   `r1` The first operand register
 -   `i` The inlined [immediate](../datatypes.md#immediates) value
 -   `rr` The register to store the result in &mdash; Defaults to r1 if omitted
@@ -23,7 +23,7 @@ Divides the value from `r1` by the value from `i`, stores the result in `rr`.
     |--------|--------|--------|--------|--------|--------|--------|--------|
      00000000 0000000s r1...... r2...... rr...... 00000000 00000000 00000000
 
--   `s` indicates whether the operands are signed (1) or not (0)
+-   `s` indicates whether the operands are signed (`1`) or not (`0`)
 -   `r1` The first operand register
 -   `r2` The second operand register
 -   `rr` The register to store the result in &mdash; Defaults to r1 if omitted
@@ -57,7 +57,7 @@ remainder (otherwise called the modulus) in `rm`.
     |--------|--------|--------|--------|--------|--------|--------|--------|
      00000000 0000001s r1...... r2...... rr...... rm...... 00000000 00000000
 
--   `s` indicates whether the operands are signed (1) or not (0)
+-   `s` indicates whether the operands are signed (`1`) or not (`0`)
 -   `r1` The first operand register
 -   `r2` The second operand register
 -   `rr` The result storage register for the quotient &mdash; Defaults to r1 if omitted
