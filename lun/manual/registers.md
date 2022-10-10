@@ -34,7 +34,8 @@ Could theoretically be coded as 8 bits... is saving the 1 bit worth it? 🤔
 10000000 .. 10111111 -> pq0 .. fq3 (10iirrrr)
 11000000 .. 11011111 -> ph0 .. fh1 (110irrrr)
 11100000 .. 11101111 -> p   .. f   (1110rrrr)
-11110000 .. 11111110 -> undefined behavior
+11110000 ..          -> Impossible (used for decoding)
+11110001 .. 11111011 -> undefined behavior
 11111100 .. 11111111 -> fwi        (full word immediate)
 11111111             -> None       (rarely useful, but worth having)
 ```
