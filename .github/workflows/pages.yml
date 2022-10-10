@@ -20,9 +20,13 @@ jobs:
           toolchain: stable
           default: true
 
-      - run: cargo install mdbook
+      # - run: cargo install mdbook
+      # - run: mdbook build ./lun/
 
-      - run: mdbook build ./lun/
+      - run: |
+          curl -Lo ./mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.4.21/mdbook-v0.4.21-x86_64-unknown-linux-gnu.tar.gz && \
+            tar -xf ./mdbook.tar.gz && \
+            ./mdbook build ./lun/
 
       - uses: actions/upload-pages-artifact@v1.0.4
         name: Upload static assets
