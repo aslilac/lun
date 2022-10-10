@@ -3,20 +3,20 @@
  */
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum VmResult {
-    Ok,
-    Err(VmError),
+	Ok,
+	Err(VmError),
 }
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum VmError {
-    BrOverflow,
-    RegOverflow,
-    StackOverflow,
-    StackUnderflow,
+	BrOverflow,
+	RegOverflow,
+	StackOverflow,
+	StackUnderflow,
 }
 
 impl Default for VmResult {
-    fn default() -> Self {
-        Self::Ok
-    }
+	fn default() -> Self {
+		Self::Ok
+	}
 }
