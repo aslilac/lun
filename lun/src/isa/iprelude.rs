@@ -1,5 +1,9 @@
 pub use super::Instruction;
-pub use crate::vm::{
-	Vm, VmByteRegister, VmError::*, VmHwordRegister, VmNativeRegister, VmNativeRegister::*,
-	VmQwordRegister, VmRegister,
-};
+pub use crate::vm::reg;
+pub use crate::vm::Vm;
+pub use crate::vm::VmByteRegister;
+pub use crate::vm::VmError::*;
+pub use crate::vm::VmHwordRegister;
+pub use crate::vm::VmQwordRegister;
+pub use crate::vm::VmRegister;
+pub use crate::vm::VmWordRegister;

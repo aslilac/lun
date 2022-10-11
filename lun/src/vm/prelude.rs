@@ -1,4 +1,1 @@
-pub use super::{
-	Vm, VmByteRegister, VmError, VmHwordRegister, VmNativeRegister, VmNativeRegister::*,
-	VmQwordRegister, VmResult,
-};
+pub use super::{reg, Vm, VmError, VmNativeRegister, VmRegister, VmResult};

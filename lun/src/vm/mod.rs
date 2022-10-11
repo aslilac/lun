@@ -4,10 +4,14 @@ pub mod prelude;
 
 use crate::base::{DisplayBuffer, DisplayTarget};
 use crate::isa::prelude::Instruction;
-pub use cpu::registers::{
-	AddressableRegister, RegisterSet, VmByteRegister, VmHwordRegister, VmNativeRegister,
-	VmNativeRegister::*, VmQwordRegister, VmRegister,
-};
+pub use cpu::registers::reg;
+pub use cpu::registers::RegisterSet;
+pub use cpu::registers::VmByteRegister;
+pub use cpu::registers::VmHwordRegister;
+pub use cpu::registers::VmNativeRegister;
+pub use cpu::registers::VmQwordRegister;
+pub use cpu::registers::VmRegister;
+pub use cpu::registers::VmWordRegister;
 pub use err::{VmError, VmResult};
 use std::fmt::Debug;
 
@@ -63,17 +67,17 @@ impl Vm {
 		}
 	}
 
-	pub fn get_register_value(&self, reg: impl VmRegister) -> u64 {
+	pub fn get_register_value(&self, reg: VmRegister) -> u64 {
 		self.rs.get_register_value(reg)
 	}
 
-	pub fn set_register_value(&mut self, reg: impl VmRegister, val: u64) {
+	pub fn set_register_value(&mut self, reg: VmRegister, val: u64) {
 		self.rs.set_register_value(reg, val);
 	}
 
 	pub fn update_register_value(
 		&mut self,
-		reg: impl VmRegister,
+		reg: VmRegister,
 		reducer: impl FnOnce(u64) -> Result<u64, VmError>,
 	) -> Result<u64, VmError> {
 		let prev = self.get_register_value(reg);
@@ -88,7 +92,7 @@ impl Vm {
 	}
 
 	pub fn clear_registers(&mut self) {
-		self.rs = RegisterSet::default();
+		self.rs = Default::default();
 	}
 
 	pub fn exec(&mut self, inst: impl Instruction + Debug) {

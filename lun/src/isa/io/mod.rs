@@ -10,19 +10,13 @@ use std::fmt;
 #[allow(non_camel_case_types)]
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum IoInstruction {
-	cp_b_rr(VmByteRegister, VmByteRegister),
-	cp_q_rr(VmQwordRegister, VmQwordRegister),
-	cp_h_rr(VmHwordRegister, VmHwordRegister),
-	cp_w_rr(VmNativeRegister, VmNativeRegister),
-	mv_b_rr(VmByteRegister, VmByteRegister),
-	mv_q_rr(VmQwordRegister, VmQwordRegister),
-	mv_h_rr(VmHwordRegister, VmHwordRegister),
-	mv_w_rr(VmNativeRegister, VmNativeRegister),
-	pop_w_r(VmNativeRegister),
-	push_w_r(VmNativeRegister),
+	cp_t_rr(VmRegister, VmRegister),
+	mv_t_rr(VmRegister, VmRegister),
+	pop_w_r(VmWordRegister),
+	push_w_r(VmWordRegister),
 	put_b_i(u8),
 	put_b_r(VmByteRegister),
-	put_w_r(VmNativeRegister),
+	put_w_r(VmWordRegister),
 }
 
 impl Instruction for IoInstruction {
@@ -30,14 +24,8 @@ impl Instruction for IoInstruction {
 		use IoInstruction::*;
 
 		match self {
-			cp_b_rr(r1, rr) => cp::t_rr(vm, r1, rr),
-			cp_q_rr(r1, rr) => cp::t_rr(vm, r1, rr),
-			cp_h_rr(r1, rr) => cp::t_rr(vm, r1, rr),
-			cp_w_rr(r1, rr) => cp::t_rr(vm, r1, rr),
-			mv_b_rr(r1, rr) => mv::t_rr(vm, r1, rr),
-			mv_q_rr(r1, rr) => mv::t_rr(vm, r1, rr),
-			mv_h_rr(r1, rr) => mv::t_rr(vm, r1, rr),
-			mv_w_rr(r1, rr) => mv::t_rr(vm, r1, rr),
+			cp_t_rr(r1, rr) => cp::t_rr(vm, r1, rr),
+			mv_t_rr(r1, r2) => mv::t_rr(vm, r1, r2),
 			pop_w_r(r1) => pop::w_r(vm, r1),
 			push_w_r(r1) => push::w_r(vm, r1),
 			put_b_i(i) => put::b_i(vm, i),
@@ -52,14 +40,8 @@ impl fmt::Display for IoInstruction {
 		use IoInstruction::*;
 
 		match self {
-			cp_b_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			cp_q_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			cp_h_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			cp_w_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			mv_b_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			mv_q_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			mv_h_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
-			mv_w_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
+			cp_t_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
+			mv_t_rr(r1, rr) => write!(disp, "mv {:?} {:?}", r1, rr),
 			pop_w_r(r1) => write!(disp, "pop {:?}", r1),
 			push_w_r(r1) => write!(disp, "push {:?}", r1),
 			put_b_i(i) => write!(disp, "put {}", *i as char),
@@ -77,18 +59,13 @@ mod tests {
 	fn mv() {
 		let mut vm = Vm::default();
 
-		let xb0 = VmByteRegister::new(x, 0);
-		let xb1 = VmByteRegister::new(x, 1);
-		vm.set_register_value(x, 0x01);
+		vm.set_register_value(reg::x, 0x01);
 
-		vm.exec(mv_b_rr(xb0, xb1));
-		assert_eq!(vm.get_register_value(x), 0x0101);
+		vm.exec(mv_t_rr(reg::xb0, reg::xb1));
+		assert_eq!(vm.get_register_value(reg::x), 0x0100);
 
-		let xq0 = VmQwordRegister::new(x, 0);
-		let xq1 = VmQwordRegister::new(x, 1);
-
-		vm.exec(mv_q_rr(xq0, xq1));
-		assert_eq!(vm.get_register_value(x), 0x01010101);
+		vm.exec(mv_t_rr(reg::xq0, reg::xq1));
+		assert_eq!(vm.get_register_value(reg::x), 0x01000000);
 	}
 
 	#[test]
@@ -99,39 +76,39 @@ mod tests {
 			vm.mem.push(i);
 		}
 
-		vm.exec(pop_w_r(a));
-		vm.exec(pop_w_r(b));
-		vm.exec(pop_w_r(c));
+		vm.exec(pop_w_r(reg::a.into()));
+		vm.exec(pop_w_r(reg::b.into()));
+		vm.exec(pop_w_r(reg::c.into()));
 
-		assert_eq!(vm.get_register_value(a), 0);
-		assert_eq!(vm.get_register_value(b), 1);
-		assert_eq!(vm.get_register_value(c), 2);
+		assert_eq!(vm.get_register_value(reg::a), 0);
+		assert_eq!(vm.get_register_value(reg::b), 1);
+		assert_eq!(vm.get_register_value(reg::c), 2);
 	}
 
 	#[test]
 	fn push() {
 		let mut vm = Vm::default();
 
-		vm.set_register_value(s, 3);
-		vm.set_register_value(x, 1);
+		vm.set_register_value(reg::s, 3);
+		vm.set_register_value(reg::x, 1);
 		vm.mem = vec![0; 3];
 
-		vm.exec(push_w_r(x));
+		vm.exec(push_w_r(reg::x.into()));
 		assert_eq!(vm.mem[0], 0);
 		assert_eq!(vm.mem[1], 0);
 		assert_eq!(vm.mem[2], 1);
 
-		vm.exec(push_w_r(x));
+		vm.exec(push_w_r(reg::x.into()));
 		assert_eq!(vm.mem[0], 0);
 		assert_eq!(vm.mem[1], 1);
 		assert_eq!(vm.mem[2], 1);
 
-		vm.exec(push_w_r(x));
+		vm.exec(push_w_r(reg::x.into()));
 		assert_eq!(vm.mem[0], 1);
 		assert_eq!(vm.mem[1], 1);
 		assert_eq!(vm.mem[2], 1);
 
-		assert_eq!(vm.get_register_value(s), 0);
+		assert_eq!(vm.get_register_value(reg::s), 0);
 	}
 
 	#[test]

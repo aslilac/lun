@@ -21,25 +21,25 @@ pub enum ArithmeticInstruction {
 	add_i32_rrr(VmHwordRegister, VmHwordRegister, VmHwordRegister),
 	add_u32_rir(VmHwordRegister, u32, VmHwordRegister),
 	add_u32_rrr(VmHwordRegister, VmHwordRegister, VmHwordRegister),
-	add_f64_rir(VmNativeRegister, f64, VmNativeRegister),
-	add_f64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
-	add_i64_rir(VmNativeRegister, i64, VmNativeRegister),
-	add_i64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
-	add_u64_rir(VmNativeRegister, u64, VmNativeRegister),
-	add_u64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
+	add_f64_rir(VmWordRegister, f64, VmWordRegister),
+	add_f64_rrr(VmWordRegister, VmWordRegister, VmWordRegister),
+	add_i64_rir(VmWordRegister, i64, VmWordRegister),
+	add_i64_rrr(VmWordRegister, VmWordRegister, VmWordRegister),
+	add_u64_rir(VmWordRegister, u64, VmWordRegister),
+	add_u64_rrr(VmWordRegister, VmWordRegister, VmWordRegister),
 
-	div_i64_rirr(VmNativeRegister, i64, VmNativeRegister, VmNativeRegister),
+	div_i64_rirr(VmWordRegister, i64, VmWordRegister, VmWordRegister),
 	div_i64_rrrr(
-		VmNativeRegister,
-		VmNativeRegister,
-		VmNativeRegister,
-		VmNativeRegister,
+		VmWordRegister,
+		VmWordRegister,
+		VmWordRegister,
+		VmWordRegister,
 	),
 
-	mul_i64_rir(VmNativeRegister, i64, VmNativeRegister),
-	mul_i64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
-	mul_u64_rir(VmNativeRegister, u64, VmNativeRegister),
-	mul_u64_rrr(VmNativeRegister, VmNativeRegister, VmNativeRegister),
+	mul_i64_rir(VmWordRegister, i64, VmWordRegister),
+	mul_i64_rrr(VmWordRegister, VmWordRegister, VmWordRegister),
+	mul_u64_rir(VmWordRegister, u64, VmWordRegister),
+	mul_u64_rrr(VmWordRegister, VmWordRegister, VmWordRegister),
 }
 
 impl Instruction for ArithmeticInstruction {
@@ -87,23 +87,36 @@ mod tests {
 	fn add_i8() {
 		let mut vm = Vm::default();
 
-		let xb0 = VmByteRegister::new(x, 0);
-		let xb1 = VmByteRegister::new(x, 1);
+		vm.set_register_value(reg::xb1, 1);
 
-		vm.set_register_value(xb1, 1);
+		vm.exec(add_i8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 1);
+		vm.exec(add_i8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 2);
 
-		vm.exec(add_i8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 1);
-		vm.exec(add_i8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 2);
+		vm.set_register_value(reg::xb0, i8::MAX as u64);
 
-		vm.set_register_value(xb0, i8::MAX as u64);
-
-		vm.exec(add_i8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 0x80);
+		vm.exec(add_i8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 0x80);
 		assert_eq!(vm.ov, true);
-		vm.exec(add_i8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 0x81);
+		vm.exec(add_i8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 0x81);
 		assert_eq!(vm.ov, false);
 	}
 
@@ -111,98 +124,110 @@ mod tests {
 	fn add_u8() {
 		let mut vm = Vm::default();
 
-		let xb0 = VmByteRegister::new(x, 0);
-		let xb1 = VmByteRegister::new(x, 1);
+		vm.set_register_value(reg::xb1, 1);
 
-		vm.set_register_value(xb1, 1);
+		vm.exec(add_u8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 1);
+		vm.exec(add_u8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 2);
 
-		vm.exec(add_u8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 1);
-		vm.exec(add_u8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 2);
+		vm.set_register_value(reg::xb0, u8::MAX as u64);
 
-		vm.set_register_value(xb0, u8::MAX as u64);
-
-		vm.exec(add_u8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 0x00);
+		vm.exec(add_u8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 0x00);
 		assert_eq!(vm.ov, true);
-		vm.exec(add_u8_rrr(xb0, xb1, xb0));
-		assert_eq!(vm.get_register_value(xb0), 0x01);
+		vm.exec(add_u8_rrr(
+			reg::xb0.into(),
+			reg::xb1.into(),
+			reg::xb0.into(),
+		));
+		assert_eq!(vm.get_register_value(reg::xb0), 0x01);
 		assert_eq!(vm.ov, false);
 	}
 
 	#[test]
 	fn add_f32() {
 		let mut vm = Vm::default();
-		let xh0 = VmHwordRegister::new(x, 0);
 
-		vm.exec(add_f32_rir(xh0, 1.0, xh0));
-		assert_eq!(vm.get_register_value(xh0), 0x3f800000);
+		vm.exec(add_f32_rir(reg::xh0.into(), 1.0, reg::xh0.into()));
+		assert_eq!(vm.get_register_value(reg::xh0), 0x3f800000);
 	}
 
 	#[test]
 	fn add_f64() {
 		let mut vm = Vm::default();
 
-		vm.exec(add_f64_rir(x, 1.0, x));
-		vm.exec(add_f64_rir(y, 5.47, y));
-		vm.exec(add_f64_rrr(x, y, x));
-		vm.exec(add_f64_rrr(x, y, a));
-		assert_eq!(vm.get_register_value(a), 0x4027e147ae147ae1);
+		vm.exec(add_f64_rir(reg::x.into(), 1.0, reg::x.into()));
+		vm.exec(add_f64_rir(reg::y.into(), 5.47, reg::y.into()));
+		vm.exec(add_f64_rrr(reg::x.into(), reg::y.into(), reg::x.into()));
+		vm.exec(add_f64_rrr(reg::x.into(), reg::y.into(), reg::a.into()));
+		assert_eq!(vm.get_register_value(reg::a), 0x4027e147ae147ae1);
 	}
 
 	#[test]
 	fn add_i64() {
 		let mut vm = Vm::default();
 
-		vm.exec(add_i64_rir(x, 2, x));
-		assert_eq!(vm.get_register_value(x), 2);
-		vm.exec(add_i64_rrr(x, x, x));
-		assert_eq!(vm.get_register_value(x), 4);
+		vm.exec(add_i64_rir(reg::x.into(), 2, reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x), 2);
+		vm.exec(add_i64_rrr(reg::x.into(), reg::x.into(), reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x), 4);
 
-		vm.exec(add_i64_rir(x, -8, x));
-		assert_eq!(vm.get_register_value(x) as i64, -4);
+		vm.exec(add_i64_rir(reg::x.into(), -8, reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x) as i64, -4);
 	}
 
 	#[test]
 	fn add_u64() {
 		let mut vm = Vm::default();
 
-		vm.exec(add_u64_rir(x, 2, x));
-		assert_eq!(vm.get_register_value(x), 2);
-		vm.exec(add_u64_rrr(x, x, x));
-		assert_eq!(vm.get_register_value(x), 4);
+		vm.exec(add_u64_rir(reg::x.into(), 2, reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x), 2);
+		vm.exec(add_u64_rrr(reg::x.into(), reg::x.into(), reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x), 4);
 	}
 
 	#[test]
 	fn mul_i64() {
 		let mut vm = Vm::default();
 
-		vm.set_register_value(x, 5);
+		vm.set_register_value(reg::x, 5);
 
-		vm.exec(mul_i64_rir(x, -1, x));
-		assert_eq!(vm.get_register_value(x) as i64, -5);
+		vm.exec(mul_i64_rir(reg::x.into(), -1, reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x) as i64, -5);
 
-		vm.exec(mul_i64_rir(x, 2, x));
-		assert_eq!(vm.get_register_value(x) as i64, -10);
+		vm.exec(mul_i64_rir(reg::x.into(), 2, reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x) as i64, -10);
 
-		vm.set_register_value(x, u64::MAX); // should be the same as -1
-		vm.set_register_value(y, 5);
+		vm.set_register_value(reg::x, u64::MAX); // should be the same as -1
+		vm.set_register_value(reg::y, 5);
 
-		vm.exec(mul_i64_rrr(x, y, x));
-		assert_eq!(vm.get_register_value(x) as i64, -5);
+		vm.exec(mul_i64_rrr(reg::x.into(), reg::y.into(), reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x) as i64, -5);
 
-		vm.exec(mul_i64_rrr(x, x, x));
-		assert_eq!(vm.get_register_value(x) as i64, 25);
+		vm.exec(mul_i64_rrr(reg::x.into(), reg::x.into(), reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x) as i64, 25);
 	}
 
 	#[test]
 	fn mul_u64() {
 		let mut vm = Vm::default();
 
-		vm.set_register_value(x, 2);
+		vm.set_register_value(reg::x, 2);
 
-		vm.exec(mul_u64_rrr(x, x, x));
-		assert_eq!(vm.get_register_value(x), 4);
+		vm.exec(mul_u64_rrr(reg::x.into(), reg::x.into(), reg::x.into()));
+		assert_eq!(vm.get_register_value(reg::x), 4);
 	}
 }

@@ -1,7 +1,7 @@
 use super::super::iprelude::*;
 
 pub fn x_i(vm: &mut Vm, i: i64) {
-	let _ = vm.update_register_value(p, |prev| {
+	let _ = vm.update_register_value(reg::p, |prev| {
 		let result = prev.checked_add_signed(i);
 
 		if let Some(value) = result {
